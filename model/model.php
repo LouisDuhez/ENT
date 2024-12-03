@@ -1,6 +1,8 @@
 <?php
+
+
 function dbConnect () {
-    $db = new PDO('mysql:host=localhost;dbname=blog;port=3306;charset=utf8', 'root' , '');
+    $db = new PDO('mysql:host=localhost;dbname=ent;port=3306;charset=utf8', 'root' , '');
     return $db;
 }
 
@@ -13,8 +15,13 @@ function connectUser ($user, $mdp) {
     $stmt -> execute();  
 
     if ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        if (password_verify($mdp, $result["user_mdp"])) {
-            $_SESSION["pseudo"] = $pseudo;
+        if (
+            // password_verify($mdp, $result["user_mdp"])
+
+            $mdp == $result["user_mdp"]
+            
+            ) {
+            $_SESSION["email"] = $user;
             return ['user' => true, 'mdpValid' => true];
         } else {
             return ['user' => true, 'mdpValid' => false];
@@ -27,6 +34,13 @@ function connectUser ($user, $mdp) {
 function logOutUser() {
     session_destroy();
 }
-    
-?>
+
+function showNote($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM note WHERE fk_user_id =:user_id'); // jointure nécessaire
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_STR);
+    $stmt -> execute();  
+}
+
 ?>
