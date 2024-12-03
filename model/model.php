@@ -35,6 +35,16 @@ function logOutUser() {
     session_destroy();
 }
 
+
+function saveInfoUser($userEmail) {
+    $db = dbConnect();
+    $requete = ("SELECT user_id FROM user WHERE user_email =:email");
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":email" , $userEmail, PDO::PARAM_STR);
+    $stmt -> execute();  
+    return $stmt;
+}
+
 function showNote($user_id) {
     $db = dbConnect();
     $requete = ('SELECT * FROM note WHERE fk_user_id =:user_id'); // jointure nécessaire
@@ -42,5 +52,15 @@ function showNote($user_id) {
     $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_STR);
     $stmt -> execute();  
 }
+
+function showAbsence($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM absence WHERE fk_user_id =:user_id'); // jointure nécessaire
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_STR);
+    $stmt -> execute();
+    return $stmt;
+}
+
 
 ?>

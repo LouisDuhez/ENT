@@ -35,6 +35,8 @@ else {
             logOutUser();
             include("view/user_connect.php");
             break;
+        case 'showAbsence' : 
+            include('view/absence.php');
     }
 }
 

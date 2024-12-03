@@ -6,7 +6,13 @@
     <title>Home</title>
 </head>
 <body>
+    <?php
+        $stmt = saveInfoUser($email);
+        $infoUser = $stmt -> fetch(PDO::FETCH_ASSOC);
+        $_SESSION['user_id'] = $infoUser['user_id'];
+    ?>
     <h1>Accueil</h1>
     <a href="control.php?action=deConnect">Déconnexion</a>
+    <a href="control.php?action=showAbsence">Absence</a>
 </body>
 </html>
