@@ -20,6 +20,5 @@
     <a href="control.php?action=showChat">Chat Rapide</a>
     <a href="control.php?action=showCloud">Cloud</a>
     <a href="control.php?action=showCash">Porte monnaie</a>
-
 </body>
 </html>
