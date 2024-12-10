@@ -37,6 +37,13 @@ else {
             break;
         case 'showAbsence' : 
             include('view/absence.php');
+        
+        case 'showNote' : 
+            include('view/note.php');
+        case 'showSchedule' : 
+            include('view/schedule.php');
+        case 'showHomework' : 
+            include ('view/homework.php');
     }
 }
 
