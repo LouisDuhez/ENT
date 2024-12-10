@@ -51,6 +51,7 @@ function showNote($user_id) {
     $stmt = $db -> prepare($requete);
     $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_STR);
     $stmt -> execute();  
+    return $stmt;
 }
 
 function showAbsence($user_id) {
