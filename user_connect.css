@@ -1,0 +1,162 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+
+
+:root {
+    --blue: #001947;
+    --red: #A31F21;
+    --white: #edf1f5;
+    --black: #191919;
+}
+
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.connexion{
+    background-color: var(--blue);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.form-container h1 {
+    font-size: 2rem;
+    color: var(--black);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.form-connexion {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-connexion label {
+    font-size: 1rem;
+    color: var(--black);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid var(--white);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--red);
+}
+
+.image-container {
+    display: none; 
+}
+
+.logo-university{
+    width: 40%;
+    margin-top: 30px;
+}
+
+.settings-connexion{
+    display: flex;
+    margin-top: 30px;
+}
+
+.settings-connexion label{
+    margin-right: 60px;
+    color: var(--blue);
+} 
+
+
+.settings-connexion a{
+    color: var(--red);
+    transition: color 0.8 ease-in;
+    font-weight: bold;
+} 
+
+
+.settings-connexion a:hover{
+    color: var(--blue);
+} 
+
+
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        height: 70vh;
+    }
+
+    .form-container {
+        flex: 1;
+        padding: 40px;
+        justify-content: center;
+    }
+
+    .image-container {
+        flex: 1;
+        display: block;
+        background-image: url('img/img-connexion.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .form-container h1 {
+        font-size: 32px;
+    }
+    
+    .logo-university{
+        width: 20%;
+        margin-top: 30px;
+    }
+}
