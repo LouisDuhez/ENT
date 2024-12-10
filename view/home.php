@@ -16,6 +16,10 @@
     <a href="control.php?action=showAbsence">Absence</a>
     <a href="control.php?action=showNote">Note</a>
     <a href="control.php?action=showSchedule">Emploi du temps</a>
+    <a href="control.php?action=showHomework">Cahier de texte</a>
+    <a href="control.php?action=showChat">Chat Rapide</a>
+    <a href="control.php?action=showCloud">Cloud</a>
+    <a href="control.php?action=showCash">Porte monnaie</a>
 
 </body>
 </html>
