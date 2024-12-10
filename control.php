@@ -44,6 +44,12 @@ else {
             include('view/schedule.php');
         case 'showHomework' : 
             include ('view/homework.php');
+        case 'showChat' : 
+            include ('view/chat.php');
+        case 'showCloud' : 
+            include ('view/cloud.php');
+        case 'showCash' : 
+            include ('view/cash.php');
     }
 }
 
