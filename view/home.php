@@ -14,5 +14,7 @@
     <h1>Accueil</h1>
     <a href="control.php?action=deConnect">Déconnexion</a>
     <a href="control.php?action=showAbsence">Absence</a>
+    <a href="control.php?action=showNote">Note</a>
+    <a href="control.php?action=showSchedule">Emploi du temps</a>
 </body>
 </html>
