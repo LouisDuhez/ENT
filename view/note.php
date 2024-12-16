@@ -12,7 +12,7 @@
     $currentCompetence = null;
     $currentMatiere = null;
     $currentCompetence = null;
-$currentMatiere = null;
+    $currentMatiere = null;
 
 foreach ($listNote as $note) {
     

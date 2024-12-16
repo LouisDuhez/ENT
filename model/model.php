@@ -104,4 +104,17 @@ function calculerTemps($date1, $date2) {
     return $totalSecondes;
 }
 
+function showHomework($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM `devoir`
+    INNER JOIN matiere ON devoir.fk_matiere_id = matiere.matiere_id
+    INNER JOIN user ON devoir.fk_user_id = user.user_id
+    WHERE user.user_id = :user_id 
+    ORDER BY devoir_date_fin');
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_INT);
+    $stmt -> execute();
+    return $stmt;
+}
+
 ?>
