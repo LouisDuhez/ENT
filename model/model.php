@@ -117,4 +117,27 @@ function showHomework($user_id) {
     return $stmt;
 }
 
+function showChat($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT 
+    chat.chat_id,
+    CASE 
+        WHEN chat.fk_user_id1 = :user_id THEN user2.user_prenom 
+        WHEN chat.fk_user_id2 = :user_id THEN user1.user_prenom 
+    END AS user_prenom,
+	CASE 
+        WHEN chat.fk_user_id1 = :user_id THEN user2.user_nom 
+        WHEN chat.fk_user_id2 = :user_id THEN user1.user_nom 
+    END AS user_nom
+    FROM chat
+    INNER JOIN user AS user1 ON chat.fk_user_id1 = user1.user_id
+    INNER JOIN user AS user2 ON chat.fk_user_id2 = user2.user_id
+    WHERE fk_user_id1 = :user_id OR fk_user_id2 = :user_id;');
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_INT);
+    $stmt -> execute();
+    return $stmt;
+}
+    
+
 ?>
