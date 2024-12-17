@@ -57,6 +57,9 @@ else {
         case 'showCash' : 
             include ('view/cash.php');
             break;
+        case 'pushHomework':
+            include('pushHomework.php');
+            break;
     }
 }
 
