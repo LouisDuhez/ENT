@@ -117,6 +117,53 @@ else {
             }
             include('view/absence.php');
             break;
+
+            case 'showFolder';
+            
+            if (isset($_GET['folderId']) && is_numeric($_GET['folderId'])) {
+                $folderId = $_GET['folderId'];
+                $folderOpen = true;
+                include('view/cloud.php'); 
+                break;
+            } else {
+                echo "ID de cloud invalide.";
+            }
+            break;
+            case 'uploadFile':
+                if (isset($_FILES['file']) && isset($_POST['folderId']) && is_numeric($_POST['folderId'])) {
+                    $folderId = $_POST['folderId'];
+                    $fileName = $_FILES['file']['name'];
+                    $fileTmpName = $_FILES['file']['tmp_name'];
+                    $uploadDir = 'uploads/';
+                    $targetFilePath = $uploadDir . basename($fileName);
+            
+                    
+                    if (move_uploaded_file($fileTmpName, $targetFilePath)) {
+                        $db = dbConnect();
+                        $requete = "INSERT INTO file (file_name, fk_folder_id, fk_user_id) VALUES (:fileName, :folderId, :userId)";
+                        $stmt = $db->prepare($requete);
+            
+                        
+                        $userId = $_SESSION['user_id']; 
+            
+                       
+                        $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
+                        $stmt->bindParam(':folderId', $folderId, PDO::PARAM_INT);
+                        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            
+                        
+                        $stmt->execute();
+            
+                       
+                        header("Location: control.php?action=showCloud&folderId=$folderId");
+                    } else {
+                        echo 'Erreur lors du téléchargement du fichier.';
+                    }
+                } else {
+                    echo 'Fichier ou dossier manquant.';
+                }
+                break;
+
     }
 }
 

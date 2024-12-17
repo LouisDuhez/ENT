@@ -192,4 +192,13 @@ function showFolder($user_id) {
     $stmt->execute();
     return $stmt;
 }
+
+function showFiles($folder_id) {
+    $db = dbConnect();
+    $requete = 'SELECT * FROM file WHERE fk_folder_id = :folder_id';
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":folder_id", $folder_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
 ?>
