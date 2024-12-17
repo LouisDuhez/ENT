@@ -95,6 +95,15 @@ function showAbsence($user_id)
     return $stmt;
 }
 
+function updateAbsenceJustif($absenceID, $fileName) {
+    $db = dbConnect();
+    $query = "UPDATE absence SET abs_justif = 1, abs_justif_file = :fileName WHERE abs_id = :absenceID";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':absenceID', $absenceID, PDO::PARAM_INT);
+    $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
 function calculerTemps($date1, $date2)
 {
     $datetime1 = new DateTime($date1);

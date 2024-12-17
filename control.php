@@ -84,6 +84,26 @@ else {
             }
             header("Location: control.php?action=openChat&chatID=$chatID");
             exit();
+        
+        case 'justifAbsence':
+            if (isset($_POST['absence_id']) && !empty($_FILES['justif_file']['name'])) {
+                $absenceID = $_POST['absence_id'];
+                $uploadDir = 'absence_justif/';
+                $fileName = basename($_FILES['justif_file']['name']);
+                $targetFilePath = $uploadDir . $fileName;
+        
+                // Vérification et téléchargement du fichier
+                if (move_uploaded_file($_FILES['justif_file']['tmp_name'], $targetFilePath)) {
+                    updateAbsenceJustif($absenceID, $fileName); 
+                    echo "Justificatif téléchargé avec succès.";
+                } else {
+                    echo "Erreur lors du téléchargement du fichier.";
+                }
+            } else {
+                echo "Fichier ou ID d'absence manquant.";
+            }
+            include('view/absence.php');
+            break;
     }
 }
 
