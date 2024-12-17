@@ -84,3 +84,7 @@ body {
   .menu-item.logout {
     padding-top: 150px;
   }
+
+  a{
+    text-decoration: none;
+  }
