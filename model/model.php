@@ -179,4 +179,17 @@ function addMessage($chatID, $userID, $message_text) {
     $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
     $stmt->execute();
 }
+
+function showFolder($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM folder 
+    INNER JOIN user ON folder.fk_user_id = user.user_id
+    WHERE fk_user_id = :user_id
+    
+    ');
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
 ?>

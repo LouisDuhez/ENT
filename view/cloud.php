@@ -7,6 +7,13 @@
     
 </head>
 <body>
-    
+    <?php
+         $stmt = showFolder($_SESSION['user_id']);
+         $listFolder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+         foreach($listFolder as $folder) {
+            echo $folder['folder_name'];
+
+         }
+    ?>
 </body>
 </html>
