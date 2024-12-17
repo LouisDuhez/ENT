@@ -58,6 +58,9 @@ else {
             include ('view/cash.php');
             break;
         case 'pushHomework':
+        include('pushHomework.php');
+            break;
+
             include('view/pushHomework.php');
             break;
         case 'openChat':
