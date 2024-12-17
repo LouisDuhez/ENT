@@ -108,6 +108,20 @@
         </div>
     </div>
 
+    <section>
+        <div class="header">
+            <h1>Accueil</h1>
+        </div>
+        <div class="container">
+        </div>
+        <div class="container">
+        </div>
+        <div class="container">
+        </div>
+        <div class="container">
+        </div>
+    </section>
+
 </body>
 
 </html>
