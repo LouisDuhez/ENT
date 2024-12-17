@@ -37,19 +37,26 @@ else {
             break;
         case 'showAbsence' : 
             include('view/absence.php');
+            break;
         
         case 'showNote' : 
             include('view/note.php');
+            break;
         case 'showSchedule' : 
             include('view/schedule.php');
+            break;
         case 'showHomework' : 
             include ('view/homework.php');
+            break;
         case 'showChat' : 
             include ('view/chat.php');
+            break;
         case 'showCloud' : 
             include ('view/cloud.php');
+            break;
         case 'showCash' : 
             include ('view/cash.php');
+            break;
     }
 }
 
