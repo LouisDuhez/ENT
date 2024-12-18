@@ -201,4 +201,75 @@ function showFiles($folder_id) {
     $stmt->execute();
     return $stmt;
 }
+
+function deleteFile($fileId) {
+    $db = dbConnect();
+    
+    // Récupérer le nom du fichier
+    $requete = 'SELECT file_name FROM file WHERE file_id = :file_id';
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':file_id', $fileId, PDO::PARAM_INT);
+    $stmt->execute();
+    $file = $stmt->fetch();
+
+    if ($file && unlink('uploads/' . $file['file_name'])) {
+        // Supprimer l'entrée de la base de données
+        $requete = 'DELETE FROM file WHERE file_id = :file_id';
+        $stmt = $db->prepare($requete);
+        $stmt->bindParam(':file_id', $fileId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+    return false;
+}
+
+
+function createFolder($folderName,$user_id) {
+    $db = dbConnect();
+    $requete = "INSERT INTO folder (folder_id, fk_user_id, folder_name) 
+    VALUES (NUll, :user_id, :folder_name)";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':folder_name', $folderName, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
+function deleteFolder($folderId) {
+    $db = dbConnect();
+    $requete = "DELETE FROM folder WHERE folder_id = :folder_id";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':folder_id', $folderId, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+function uploadHomeworkFile($file, $homework_id) {
+    // Vérifier si le fichier est téléchargé sans erreur
+    if (isset($file['homework_file']) && $file['homework_file']['error'] == 0) {
+        // Dossier où les fichiers sont stockés
+        $uploadDir = 'homeWorkUploads/';
+        
+        // Générer un nom unique pour le fichier
+        $fileName = uniqid() . '-' . basename($file['homework_file']['name']);
+        $uploadFile = $uploadDir . $fileName;
+
+        // Déplacer le fichier téléchargé dans le dossier
+        if (move_uploaded_file($file['homework_file']['tmp_name'], $uploadFile)) {
+            // Si le fichier est bien téléchargé, mettre à jour la base de données
+            $db = dbConnect();
+            $query = "UPDATE devoir SET devoir_rendu = 1, devoir_fichier = :fileName WHERE devoir_id = :homework_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':homework_id', $homework_id, PDO::PARAM_INT);
+            $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Retourner vrai si tout se passe bien
+            return true;
+        } else {
+            // Erreur lors du déplacement du fichier
+            return "Une erreur est survenue lors du téléchargement du fichier.";
+        }
+    } else {
+        // Aucun fichier ou erreur lors du téléchargement
+        return "Aucun fichier n'a été téléchargé ou il y a eu un problème avec l'upload.";
+    }
+}
 ?>

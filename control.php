@@ -71,11 +71,31 @@ else {
             include ('view/cash.php');
             break;
         case 'pushHomework':
-        include('pushHomework.php');
+            
+            $homeWork_id = $_GET['idWork'];
+            $pushHomework = true;
+            
+            
+            include('view/Homework.php');
             break;
-
-            include('view/pushHomework.php');
+                
+        case 'uploadHomework':
+            
+            $homeWork_id = $_GET['idWork'];
+        
+            
+            $uploadResult = uploadHomeworkFile($_FILES, $homeWork_id);
+            
+           
+            if ($uploadResult === true) {
+                
+                header('Location: control.php?action=showHomework');
+                exit;
+            } else {
+                echo $uploadResult;
+            }
             break;
+            
         case 'openChat':
             if (isset($_GET['chatID']) && is_numeric($_GET['chatID'])) {
                 $chatID = $_GET['chatID'];
@@ -163,8 +183,53 @@ else {
                     echo 'Fichier ou dossier manquant.';
                 }
                 break;
+                case 'confirmDelete';
+                    $fileId = $_GET['fileId'];
+                    $folderId = $_GET['folderId'];
+                    $confirmFileId = $fileId;
+                    include('view/cloud.php');
+                break;
+                
+                
+                case 'deleteFile';
+                    $fileId = $_GET['fileId'];
+                
+                    if (deleteFile($fileId)) {
+                        echo "<p>Fichier supprimé avec succès.</p>";
+                    } else {
+                        echo "<p>Erreur lors de la suppression du fichier.</p>";
+                    }
+                    echo '<a href="control.php?action=showFolder&folderId=' . $_GET['folderId'] . '">Retour au dossier</a>';
+
+                break;
+
+                case 'createFolder';
+                $folderName = $_POST['folderName'];
+                createFolder($folderName, $_SESSION['user_id']);
+                include('view/cloud.php');
+                break;
+
+                case 'confirmDeleteFolder':
+                    $folderId = $_GET['folderId'];
+                    $confirmDeleteFolder = true;
+                    include('view/cloud.php');
+                break;
+                
+                case 'deleteFolder':
+                    if (isset($_GET['folderId']) && is_numeric($_GET['folderId'])) {
+                        $folderId = $_GET['folderId'];
+                        if (deleteFolder($folderId)) {
+                            echo "<p>Dossier supprimé avec succès.</p>";
+                        } else {
+                            echo "<p>Erreur : impossible de supprimer le dossier.</p>";
+                        }
+                    }
+                    header("Location: control.php?action=showCloud");
+                    exit;
+                break;
+            }
+                
 
     }
-}
 
 ?>

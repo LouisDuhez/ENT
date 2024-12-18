@@ -85,12 +85,12 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #fafafa;
-            transition: background-color 0.3s ease;
+            transition: border 0.3s ease;
+            border : solid 3px transparent;
         }
 
         .files li:hover {
-            background-color: #007bff;
-            color: white;
+            border : solid 3px #007bff;
         }
 
         .files a {
@@ -128,6 +128,54 @@
         .upload-form button:hover {
             background-color: #0056b3;
         }
+
+        .folder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.folder-item a.delete-link {
+    color: red;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+.folder-item a.delete-link:hover {
+    text-decoration: underline;
+}
+
+/* Mise à jour pour les fichiers */
+.files li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    transition: border 0.3s ease;
+    border: solid 3px transparent;
+}
+
+.files li a.delete-link {
+    color: red;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+.files li a.delete-link:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
@@ -135,57 +183,88 @@
     <div class="container">
         <!-- Dossiers à gauche -->
         <div class="folders">
-            <h2>Mes Dossiers</h2>
-            <?php
-            $stmt = showFolder($_SESSION['user_id']);
-            $listFolder = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    <h2>Mes Dossiers</h2>
+    <?php
+    $stmt = showFolder($_SESSION['user_id']);
+    $listFolder = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($listFolder as $folder) {
-                // Affichage des dossiers avec l'icône cliquable
-                echo '<a href="control.php?action=showCloud&folderId=' . $folder['folder_id'] . '" class="folder-item">';
-                echo '<i class="fa-solid fa-folder"></i>';
-                echo $folder['folder_name'];
-                echo '</a>';
-            }
-            
-            ?>
-        </div>
+    foreach ($listFolder as $folder) {
+        echo '<div class="folder-item">';
+    
+        // Lien vers le dossier
+        echo '<a href="control.php?action=showCloud&folderId=' . $folder['folder_id'] . '">';
+        echo '<i class="fa-solid fa-folder"></i>' . htmlspecialchars($folder['folder_name']);
+        echo '</a>';
+        
+        // Vérification si une confirmation de suppression est demandée
+        if (isset($confirmDeleteFolder) && $folder['folder_id'] == $folderId) {
+            echo '<p>Voulez-vous vraiment supprimer ce dossier ?</p>';
+            echo '<a href="control.php?action=deleteFolder&folderId=' . $folder['folder_id'] . '" class="confirm-link">Oui, supprimer</a>';
+            echo ' | <a href="control.php?action=showCloud" class="cancel-link">Annuler</a>';
+        } else {
+            // Lien de suppression
+            echo '<a href="control.php?action=confirmDeleteFolder&folderId=' . $folder['folder_id'] . '" class="delete-link">Supprimer</a>';
+        }
+        echo '</div>';
+    
+        
+    }
+    ?>
 
-        <!-- Fichiers à droite -->
+    <div class="create-folder-form">
+        <h3>Ajouter un dossier</h3>
+        <form action="control.php?action=createFolder" method="POST">
+            <input type="text" name="folderName" placeholder="Nom du dossier" required>
+            <button type="submit">Créer</button>
+        </form>
+    </div>
+</div>
+
         <div class="files">
-            <?php
-            if (isset($_GET['folderId']) && is_numeric($_GET['folderId'])) {
-                // Afficher les fichiers seulement si un dossier est sélectionné
-                $folderId = $_GET['folderId'];
-                $stmt = showFiles($folderId);
-                $listFiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    <?php
+    if (isset($_GET['folderId']) && is_numeric($_GET['folderId'])) {
+        $folderId = $_GET['folderId'];
+        $stmt = showFiles($folderId);
+        $listFiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                if (count($listFiles) > 0) {
-                    echo '<h2>Fichiers du Dossier</h2>';
-                    echo '<ul>';
-                    foreach ($listFiles as $file) {
-                        echo '<li><a href="uploads/' . $file['file_name'] . '" target="_blank">' . $file['file_name'] . '</a></li>';
-                    }
-                    echo '</ul>';
+        if (count($listFiles) > 0) {
+            echo '<h2>Fichiers du Dossier</h2>';
+            echo '<ul>';
+            foreach ($listFiles as $file) {
+                echo '<li>';
+                echo '<a href="uploads/' . htmlspecialchars($file['file_name']) . '" target="_blank">' . htmlspecialchars($file['file_name']) . '</a> ';
+        
+                // Confirmation de suppression spécifique
+                if (isset($confirmFileId) && $confirmFileId == $file['file_id']) {
+                    echo "<p>Voulez-vous vraiment supprimer ce fichier ?</p>";
+                    echo '<a href="control.php?action=deleteFile&fileId=' . $file['file_id'] . '&folderId=' . $folderId . '">Oui, supprimer</a>';
+                    echo ' | <a href="control.php?action=showCloud&folderId=' . $folderId . '">Annuler</a>';
                 } else {
-                    echo '<p>Aucun fichier dans ce dossier.</p>';
+                    echo '<a href="control.php?action=confirmDelete&fileId=' . $file['file_id'] . '&folderId=' . $folderId . '" class="delete-link">Supprimer</a>';
                 }
-
-                // Formulaire de téléchargement de fichier
-                echo '<div class="upload-form">';
-                echo '<h3>Ajouter un fichier</h3>';
-                echo '<form action="control.php?action=uploadFile" method="POST" enctype="multipart/form-data">';
-                echo '<input type="file" name="file" required>';
-                echo '<button type="submit">Télécharger</button>';
-                echo '<input type="hidden" name="folderId" value="' . $folderId . '">';
-                echo '</form>';
-                echo '</div>';
-            } else {
-                // Si aucun dossier n'est sélectionné, afficher un message
-                echo '<div class="no-folder">Aucun dossier sélectionné.</div>';
+                echo '</li>';
             }
-            ?>
-        </div>
+            echo '</ul>';
+        } else {
+            echo '<p>Aucun fichier dans ce dossier.</p>';
+        }
+
+        // Formulaire de téléchargement de fichier
+        echo '<div class="upload-form">';
+        echo '<h3>Ajouter un fichier</h3>';
+        echo '<form action="control.php?action=uploadFile" method="POST" enctype="multipart/form-data">';
+        echo '<input type="file" name="file" required>';
+        echo '<button type="submit">Télécharger</button>';
+        echo '<input type="hidden" name="folderId" value="' . $folderId . '">';
+        echo '</form>';
+        echo '</div>';
+    } else {
+        echo '<div class="no-folder">Aucun dossier sélectionné.</div>';
+    }
+    ?>
+</div>
+
     </div>
 
 </body>
