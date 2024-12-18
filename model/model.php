@@ -242,18 +242,18 @@ function deleteFolder($folderId) {
 }
 
 function uploadHomeworkFile($file, $homework_id) {
-    // Vérifier si le fichier est téléchargé sans erreur
+    
     if (isset($file['homework_file']) && $file['homework_file']['error'] == 0) {
-        // Dossier où les fichiers sont stockés
+        
         $uploadDir = 'homeWorkUploads/';
         
-        // Générer un nom unique pour le fichier
+       
         $fileName = uniqid() . '-' . basename($file['homework_file']['name']);
         $uploadFile = $uploadDir . $fileName;
 
-        // Déplacer le fichier téléchargé dans le dossier
+        
         if (move_uploaded_file($file['homework_file']['tmp_name'], $uploadFile)) {
-            // Si le fichier est bien téléchargé, mettre à jour la base de données
+            
             $db = dbConnect();
             $query = "UPDATE devoir SET devoir_rendu = 1, devoir_fichier = :fileName WHERE devoir_id = :homework_id";
             $stmt = $db->prepare($query);
@@ -261,14 +261,14 @@ function uploadHomeworkFile($file, $homework_id) {
             $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
             $stmt->execute();
 
-            // Retourner vrai si tout se passe bien
+            
             return true;
         } else {
-            // Erreur lors du déplacement du fichier
+            
             return "Une erreur est survenue lors du téléchargement du fichier.";
         }
     } else {
-        // Aucun fichier ou erreur lors du téléchargement
+       
         return "Aucun fichier n'a été téléchargé ou il y a eu un problème avec l'upload.";
     }
 }
