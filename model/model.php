@@ -3,7 +3,7 @@
 
 function dbConnect()
 {
-    $db = new PDO('mysql:host=localhost;dbname=ent;port=8889', 'root', 'root');
+    $db = new PDO('mysql:host=localhost;dbname=ent;port=3306', 'root', '');
     return $db;
 }
 
@@ -95,6 +95,15 @@ function showAbsence($user_id)
     return $stmt;
 }
 
+function updateAbsenceJustif($absenceID, $fileName) {
+    $db = dbConnect();
+    $query = "UPDATE absence SET abs_justif = 1, abs_justif_file = :fileName WHERE abs_id = :absenceID";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':absenceID', $absenceID, PDO::PARAM_INT);
+    $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
 function calculerTemps($date1, $date2)
 {
     $datetime1 = new DateTime($date1);
@@ -125,3 +134,62 @@ function showHomework($user_id)
     $stmt->execute();
     return $stmt;
 }
+
+function showChat($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT 
+    chat.chat_id,
+    CASE 
+        WHEN chat.fk_user_id1 = :user_id THEN user2.user_prenom 
+        WHEN chat.fk_user_id2 = :user_id THEN user1.user_prenom 
+    END AS user_prenom,
+	CASE 
+        WHEN chat.fk_user_id1 = :user_id THEN user2.user_nom 
+        WHEN chat.fk_user_id2 = :user_id THEN user1.user_nom 
+    END AS user_nom
+    FROM chat
+    INNER JOIN user AS user1 ON chat.fk_user_id1 = user1.user_id
+    INNER JOIN user AS user2 ON chat.fk_user_id2 = user2.user_id
+    WHERE fk_user_id1 = :user_id OR fk_user_id2 = :user_id;');
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_INT);
+    $stmt -> execute();
+    return $stmt;
+}
+
+function openChat ($chat_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM `message` 
+    INNER JOIN user ON message.fk_user_id = user.user_id
+    WHERE fk_chat_id = :chat_id
+    ORDER BY message_id');
+    $stmt = $db -> prepare($requete);
+    $stmt -> bindParam(":chat_id" , $chat_id, PDO::PARAM_INT);
+    $stmt -> execute();
+    return $stmt;
+}
+    
+function addMessage($chatID, $userID, $message_text) {
+    $db = dbConnect();
+    $requete = "INSERT INTO message (fk_chat_id, fk_user_id, message_text) 
+                VALUES (:chatID, :userID, :message_text)";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':chatID', $chatID, PDO::PARAM_INT);
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
+function showFolder($user_id) {
+    $db = dbConnect();
+    $requete = ('SELECT * FROM folder 
+    INNER JOIN user ON folder.fk_user_id = user.user_id
+    WHERE fk_user_id = :user_id
+    
+    ');
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+?>
