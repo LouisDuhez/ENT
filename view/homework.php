@@ -32,6 +32,16 @@
     }
 
     ?>
+
+    <section>
+        <div class="header"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+    </section>
 </body>
 
 </html>
