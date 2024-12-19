@@ -16,7 +16,6 @@
                     
                     echo '<a class="action-link rendre-link" href="control.php?action=pushHomework&idWork=' . $work['devoir_id'] . '">Rendre le devoir</a>';
 
-
                     
                     if (isset($_GET['idWork']) && $_GET['idWork'] == $work['devoir_id']) {
                         
