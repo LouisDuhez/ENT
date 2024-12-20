@@ -3,7 +3,8 @@
 
 function dbConnect()
 {
-    $db = new PDO('mysql:host=localhost;dbname=ent;port=3306', 'root', '');
+    // $db = new PDO('mysql:host=localhost;dbname=ent;port=3306', 'root', '');
+    $db = new PDO('mysql:host=localhost;dbname=ent;port=8889', 'root', 'root');
     return $db;
 }
 
@@ -104,7 +105,8 @@ function showAbsence($user_id)
     return $stmt;
 }
 
-function updateAbsenceJustif($absenceID, $fileName) {
+function updateAbsenceJustif($absenceID, $fileName)
+{
     $db = dbConnect();
     $query = "UPDATE absence SET abs_justif = 1, abs_justif_file = :fileName WHERE abs_id = :absenceID";
     $stmt = $db->prepare($query);
@@ -144,7 +146,8 @@ function showHomework($user_id)
     return $stmt;
 }
 
-function showChat($user_id) {
+function showChat($user_id)
+{
     $db = dbConnect();
     $requete = ('SELECT 
     chat.chat_id,
@@ -160,25 +163,27 @@ function showChat($user_id) {
     INNER JOIN user AS user1 ON chat.fk_user_id1 = user1.user_id
     INNER JOIN user AS user2 ON chat.fk_user_id2 = user2.user_id
     WHERE fk_user_id1 = :user_id OR fk_user_id2 = :user_id;');
-    $stmt = $db -> prepare($requete);
-    $stmt -> bindParam(":user_id" , $user_id, PDO::PARAM_INT);
-    $stmt -> execute();
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+    $stmt->execute();
     return $stmt;
 }
 
-function openChat ($chat_id) {
+function openChat($chat_id)
+{
     $db = dbConnect();
     $requete = ('SELECT * FROM `message` 
     INNER JOIN user ON message.fk_user_id = user.user_id
     WHERE fk_chat_id = :chat_id
     ORDER BY message_id');
-    $stmt = $db -> prepare($requete);
-    $stmt -> bindParam(":chat_id" , $chat_id, PDO::PARAM_INT);
-    $stmt -> execute();
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":chat_id", $chat_id, PDO::PARAM_INT);
+    $stmt->execute();
     return $stmt;
 }
-    
-function addMessage($chatID, $userID, $message_text) {
+
+function addMessage($chatID, $userID, $message_text)
+{
     $db = dbConnect();
     $requete = "INSERT INTO message (fk_chat_id, fk_user_id, message_text) 
                 VALUES (:chatID, :userID, :message_text)";
@@ -189,7 +194,8 @@ function addMessage($chatID, $userID, $message_text) {
     $stmt->execute();
 }
 
-function showFolder($user_id) {
+function showFolder($user_id)
+{
     $db = dbConnect();
     $requete = ('SELECT * FROM folder 
     INNER JOIN user ON folder.fk_user_id = user.user_id
@@ -202,7 +208,8 @@ function showFolder($user_id) {
     return $stmt;
 }
 
-function showFiles($folder_id) {
+function showFiles($folder_id)
+{
     $db = dbConnect();
     $requete = 'SELECT * FROM file WHERE fk_folder_id = :folder_id';
     $stmt = $db->prepare($requete);
@@ -211,9 +218,10 @@ function showFiles($folder_id) {
     return $stmt;
 }
 
-function deleteFile($fileId) {
+function deleteFile($fileId)
+{
     $db = dbConnect();
-    
+
     // Récupérer le nom du fichier
     $requete = 'SELECT file_name FROM file WHERE file_id = :file_id';
     $stmt = $db->prepare($requete);
@@ -232,7 +240,8 @@ function deleteFile($fileId) {
 }
 
 
-function createFolder($folderName,$user_id) {
+function createFolder($folderName, $user_id)
+{
     $db = dbConnect();
     $requete = "INSERT INTO folder (folder_id, fk_user_id, folder_name) 
     VALUES (NUll, :user_id, :folder_name)";
@@ -242,7 +251,8 @@ function createFolder($folderName,$user_id) {
     $stmt->execute();
 }
 
-function deleteFolder($folderId) {
+function deleteFolder($folderId)
+{
     $db = dbConnect();
     $requete = "DELETE FROM folder WHERE folder_id = :folder_id";
     $stmt = $db->prepare($requete);
@@ -250,19 +260,20 @@ function deleteFolder($folderId) {
     return $stmt->execute();
 }
 
-function uploadHomeworkFile($file, $homework_id) {
-    
+function uploadHomeworkFile($file, $homework_id)
+{
+
     if (isset($file['homework_file']) && $file['homework_file']['error'] == 0) {
-        
+
         $uploadDir = 'homeWorkUploads/';
-        
-       
+
+
         $fileName = uniqid() . '-' . basename($file['homework_file']['name']);
         $uploadFile = $uploadDir . $fileName;
 
-        
+
         if (move_uploaded_file($file['homework_file']['tmp_name'], $uploadFile)) {
-            
+
             $db = dbConnect();
             $query = "UPDATE devoir SET devoir_rendu = 1, devoir_fichier = :fileName WHERE devoir_id = :homework_id";
             $stmt = $db->prepare($query);
@@ -270,14 +281,14 @@ function uploadHomeworkFile($file, $homework_id) {
             $stmt->bindParam(':fileName', $fileName, PDO::PARAM_STR);
             $stmt->execute();
 
-            
+
             return true;
         } else {
-            
+
             return "Une erreur est survenue lors du téléchargement du fichier.";
         }
     } else {
-       
+
         return "Aucun fichier n'a été téléchargé ou il y a eu un problème avec l'upload.";
     }
 }
@@ -352,3 +363,4 @@ function addHomework($devoir_nom, $devoir_desc, $devoir_date_fin, $fk_matiere_id
     return $stmt->execute();
 }
 ?>
+
