@@ -122,13 +122,17 @@
 
             <?php if ($absence['abs_justif'] == 0): ?>
                 <form action="control.php?action=justifAbsence" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="absence_id" value="<?= $absence['abs_id'] ?>">
+                    <input type="hidden" name="absence_id" value="<?= htmlspecialchars($absence['abs_id']) ?>">
                     <label for="justif_file">Télécharger un justificatif :</label>
                     <input type="file" name="justif_file" required>
                     <button type="submit">Envoyer</button>
                 </form>
             <?php else: ?>
-                <p><strong>Status:</strong> En attente de validation</p>
+                <?php if ($absence['abs_justif_valid'] == 1): ?>
+                    <p><strong>Status:</strong> Absence justifiée</p>
+                <?php else: ?>
+                    <p><strong>Status:</strong> En attente de validation</p>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>

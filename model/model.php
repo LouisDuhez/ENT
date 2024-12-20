@@ -97,7 +97,7 @@ function showAbsence($user_id)
     INNER JOIN matiere ON absence.fk_matiere_id = matiere.matiere_id
     INNER JOIN user ON absence.fk_user_id = user.user_id
     WHERE user.user_id = :user_id
-    ORDER BY abs_justif DESC');
+    ORDER BY abs_justif');
     $stmt = $db->prepare($requete);
     $stmt->bindParam(":user_id", $user_id, PDO::PARAM_STR);
     $stmt->execute();
@@ -350,5 +350,40 @@ function addHomework($devoir_nom, $devoir_desc, $devoir_date_fin, $fk_matiere_id
     $stmt->bindParam(':fk_matiere_id', $fk_matiere_id, PDO::PARAM_INT);
     $stmt->bindParam(':fk_user_id', $fk_user_id, PDO::PARAM_INT);
     return $stmt->execute();
+}
+
+function showAllAbsences()
+{
+    $db = dbConnect();
+    $requete = ('SELECT absence.*, matiere.matiere_nom, user.user_nom, user.user_prenom 
+                 FROM `absence` 
+                 INNER JOIN matiere ON absence.fk_matiere_id = matiere.matiere_id
+                 INNER JOIN user ON absence.fk_user_id = user.user_id
+                 WHERE abs_justif = 1 AND abs_justif_valid = 0
+                 ORDER BY abs_justif_valid ASC, abs_justif DESC');
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function validateAbsence($absence_id)
+{
+    $db = dbConnect();
+    $requete = "UPDATE absence SET abs_justif_valid = 1 WHERE abs_id = :absence_id";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':absence_id', $absence_id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+function getAllHomeworks() {
+    $db = dbConnect();
+    $requete = 'SELECT * FROM devoir
+                INNER JOIN matiere ON devoir.fk_matiere_id = matiere.matiere_id
+                INNER JOIN user ON devoir.fk_user_id = user.user_id
+                WHERE devoir_rendu = 1
+                ORDER BY matiere.matiere_nom, devoir.devoir_date_fin';
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    return $stmt;
 }
 ?>
