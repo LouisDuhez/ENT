@@ -226,7 +226,81 @@ else {
                     }
                     header("Location: control.php?action=showCloud");
                     exit;
-                break;
+                    break;
+
+                case 'showBackOffice' : 
+                    include('view/backOffice.php');
+                    break;
+                case 'backAddNote' : 
+                    include('view/addNote.php');
+                    break;
+                case 'backAddAbsence' : 
+                    include('view/addAbsence.php');
+                    break;
+                case 'backAddHomework' : 
+                    include('view/addHomework.php');
+                    break;
+                case 'addNote':
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $user_id = $_POST['user_id'];
+                        $matiere_id = $_POST['matiere_id'];
+                        $note_value = $_POST['note_value'];
+                        $note_coef = $_POST['note_coef'];
+                
+                        if (addNote($user_id, $matiere_id, $note_value, $note_coef)) {
+                            echo "Succès Note ajouté !";
+                            include('view/addNote.php');
+                        } else {
+                            echo "Erreur Note non ajouté";
+                            include('view/addNote.php');
+                        }
+                    }
+                    ;
+                    break;
+            
+                    case 'addAbsence':
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            $user_id = $_POST['student'];  
+                            $matiere_id = $_POST['subject']; 
+                            $absence_date = $_POST['date'];  
+                            $end_date = $_POST['end_date'];  
+                            $justif = $_POST['justif']; 
+                            $description = isset($_POST['description']) ? $_POST['description'] : null; 
+                    
+                            
+                            $result = addAbsence($user_id, $matiere_id, $absence_date, $end_date, $justif, $description);
+                    
+                            
+                            if ($result) {
+                                echo "Absence Ajoutée";
+                                include('view/addAbsence.php'); 
+                        break;
+                            } else {
+                                echo "Erreur";
+                                include('view/addAbsence.php'); 
+                        break;
+                            }
+                        }
+                        
+            
+                case 'addHomework':
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $devoir_nom = $_POST['devoir_nom'];
+                        $devoir_desc = $_POST['devoir_desc'];
+                        $devoir_date_fin = $_POST['devoir_date_fin'];
+                        $fk_matiere_id = $_POST['fk_matiere_id'];
+                        $fk_user_id = $_POST['user_id'];
+                        if (addHomework($devoir_nom, $devoir_desc, $devoir_date_fin, $fk_matiere_id, $fk_user_id)) {
+                            echo "Succès !";
+                            include('view/addHomework.php');
+                    break;
+                        } else {
+                            echo "Erreur";
+                            include('view/addHomework.php');
+                    break;
+                        }
+                    }
+                    
             }
                 
 
