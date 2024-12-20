@@ -49,6 +49,15 @@ function saveInfoUser($userEmail)
     return $stmt;
 }
 
+function userIsAdmin($userEmail){
+    $db = dbConnect();
+    $requete = ("SELECT user_admin FROM user WHERE user_email =:email");
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":email", $userEmail, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt;
+}
+
 function showNote($user_id)
 {
     $db = dbConnect();
@@ -271,5 +280,75 @@ function uploadHomeworkFile($file, $homework_id) {
        
         return "Aucun fichier n'a été téléchargé ou il y a eu un problème avec l'upload.";
     }
+}
+?>
+
+
+<!-- BackOffice -->
+
+<?php
+function addNote($user_id, $matiere_id, $note_number, $note_coef = 1)
+{
+    $db = dbConnect();
+    $requete = "INSERT INTO note (fk_user_id, fk_matiere_id, note_number, note_coef) 
+                VALUES (:user_id, :matiere_id, :note_valeur, :note_commentaire)";
+    
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':matiere_id', $matiere_id, PDO::PARAM_INT);
+    $stmt->bindParam(':note_valeur', $note_number, PDO::PARAM_INT);
+    $stmt->bindParam(':note_commentaire', $note_coef, PDO::PARAM_INT);
+    
+    return $stmt->execute();
+}
+
+function showStudent() {
+    $db = dbConnect();
+    $requete = ("SELECT * FROM user WHERE user_admin!=1");
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    return $stmt;
+}
+function showMatiere() {
+    $db = dbConnect();
+    $requete = ("SELECT * FROM matiere");
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    return $stmt;
+}
+
+function addAbsence($user_id, $matiere_id, $absence_date, $end_date, $justif, $description = null)
+{
+    $db = dbConnect();
+    $requete = "INSERT INTO absence (fk_user_id, fk_matiere_id, abs_date_debut, abs_date_fin, abs_justif, abs_desc) 
+                VALUES (:user_id, :matiere_id, :absence_date, :end_date, :justif, :description)";
+    
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':matiere_id', $matiere_id, PDO::PARAM_INT);
+    $stmt->bindParam(':absence_date', $absence_date, PDO::PARAM_STR);
+    $stmt->bindParam(':end_date', $end_date, PDO::PARAM_STR);
+    $stmt->bindParam(':justif', $justif, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    
+    return $stmt->execute();
+}
+
+
+function addHomework($devoir_nom, $devoir_desc, $devoir_date_fin, $fk_matiere_id, $fk_user_id, $devoir_fichier = null)
+{
+    $db = dbConnect();
+    
+    $requete = "INSERT INTO devoir (devoir_nom, devoir_desc, devoir_date_fin, fk_matiere_id, fk_user_id, devoir_rendu) 
+                VALUES (:devoir_nom, :devoir_desc, :devoir_date_fin, :fk_matiere_id, :fk_user_id, 0)";
+    
+    $stmt = $db->prepare($requete);
+
+    $stmt->bindParam(':devoir_nom', $devoir_nom, PDO::PARAM_STR);
+    $stmt->bindParam(':devoir_desc', $devoir_desc, PDO::PARAM_STR);
+    $stmt->bindParam(':devoir_date_fin', $devoir_date_fin, PDO::PARAM_STR);
+    $stmt->bindParam(':fk_matiere_id', $fk_matiere_id, PDO::PARAM_INT);
+    $stmt->bindParam(':fk_user_id', $fk_user_id, PDO::PARAM_INT);
+    return $stmt->execute();
 }
 ?>
