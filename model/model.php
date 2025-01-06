@@ -397,5 +397,6 @@ function getAllHomeworks() {
     $stmt->execute();
     return $stmt;
 }
+
 ?>
 
