@@ -3,8 +3,9 @@
 
 function dbConnect()
 {
-    // $db = new PDO('mysql:host=localhost;dbname=ent;port=3306', 'root', '');
-    $db = new PDO('mysql:host=localhost;dbname=ent;port=8889', 'root', 'root');
+    $db = new PDO('mysql:host=localhost;dbname=ent;port=3306', 'root', '');
+    // $db = new PDO('mysql:host=localhost;dbname=ent;port=8889', 'root', 'root');
+    
     return $db;
 }
 
