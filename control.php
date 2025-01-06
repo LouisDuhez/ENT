@@ -300,7 +300,22 @@ else {
                     break;
                         }
                     }
-                    
+                case 'backJustifAbsence' :
+                include ('view/absencejustif.php');
+                break;
+                case 'validateAbsence':
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $absence_id = $_POST['absence_id'];
+                        validateAbsence($absence_id);
+                        echo "Absence validé !";
+                        break;
+                    }
+                break;
+                case 'backHomeworkJustif' :
+                include('view/backHomeworkJustif.php');
+                break;
+
+
             }
                 
 
