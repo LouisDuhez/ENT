@@ -196,6 +196,35 @@ header h1 {
 
 /*  ----------------------------------------------------------------------------------------- */
 
+.absence-info {
+  position: fixed;
+  bottom: 20px; /* Espace par rapport au bas de l'écran */
+  right: 20px;  /* Espace par rapport au côté droit de l'écran */
+  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  color: white; /* Texte en blanc */
+  padding: 15px;
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Ombre portée */
+  z-index: 1000; /* S'assurer que le bloc est au-dessus des autres éléments */
+  width: 250px; /* Largeur du bloc */
+}
+
+.absence-info h3 {
+  margin-top: 0;
+  font-size: 18px; /* Taille de la police du titre */
+  font-weight: bold;
+}
+
+.absence-info ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.absence-info li {
+  margin-bottom: 8px; /* Espacement entre les lignes */
+  font-size: 14px; /* Taille de la police */
+}
+
 
 
 

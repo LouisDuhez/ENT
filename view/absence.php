@@ -4,150 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absence</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            padding: 2rem;
-            background-color: #f5f5f5;
-        }
-
-        .absence-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .absence-block {
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 1rem;
-            width: calc(33.33% - 2rem);
-            min-width: 250px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .absence-block p {
-            margin: 0.5rem 0;
-            color: #333;
-        }
-
-        .absence-block form {
-            margin-top: 1rem;
-        }
-
-        .absence-block form label, .absence-block form input, 
-        .absence-block form button {
-            display: block;
-            width: 100%;
-            margin: 0.5rem 0;
-        }
-
-        .absence-block form button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .absence-block form button:hover {
-            background: #0056b3;
-        }
-
-        .absence-info {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 1.5rem;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .absence-info h3 {
-            margin-bottom: 1rem;
-            color: #007bff;
-        }
-
-        .absence-info ul {
-            list-style: none;
-        }
-
-        .absence-info li {
-            margin: 0.5rem 0;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="style_homework.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 </head>
+
 <body>
-
-<!-- Conteneur principal -->
-<div class="absence-container">
-    <?php
-    $stmt = showAbsence($_SESSION['user_id']);
-    $listAbsence = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $tempTotal = 0;
-    $tempJustifie = 0;
-    $tempNonJustifie = 0;
-    $nbAbsence = 0;
-
-    foreach ($listAbsence as $absence):
-        $tempsAbsence = calculerTemps($absence['abs_date_debut'], $absence['abs_date_fin']);
-        $tempTotal += $tempsAbsence;
-        $nbAbsence++;
-
-        if ($absence['abs_justif'] == 1) {
-            $tempJustifie += $tempsAbsence;
-        } else {
-            $tempNonJustifie += $tempsAbsence;
-        }
-    ?>
-        <div class="absence-block">
-            <p><strong>Date de début:</strong> <?= $absence['abs_date_debut'] ?></p>
-            <p><strong>Matière:</strong> <?= $absence['matiere_nom'] ?></p>
-            <p><strong>Description:</strong> <?= $absence['abs_desc'] ?></p>
-            <p><strong>Durée:</strong> <?= gmdate("H:i:s", $tempsAbsence) ?></p>
-
-            <?php if ($absence['abs_justif'] == 0): ?>
-                <form action="control.php?action=justifAbsence" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="absence_id" value="<?= htmlspecialchars($absence['abs_id']) ?>">
-                    <label for="justif_file">Télécharger un justificatif :</label>
-                    <input type="file" name="justif_file" required>
-                    <button type="submit">Envoyer</button>
-                </form>
-            <?php else: ?>
-                <?php if ($absence['abs_justif_valid'] == 1): ?>
-                    <p><strong>Status:</strong> Absence justifiée</p>
-                <?php else: ?>
-                    <p><strong>Status:</strong> En attente de validation</p>
-                <?php endif; ?>
-            <?php endif; ?>
+    <div class="page">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <div class="profile-icon"></div>
+                </div>
+            </div>
+            <nav class="menu">
+                <div class="menu-item active">
+                    <div class="icon">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <div class="text">Accueil</div>
+                </div>
+                <a href="control.php?action=showSchedule">
+                    <div class="menu-item">
+                        <div class="icon timetable">
+                            <i class="fa-regular fa-calendar-days"></i>
+                        </div>
+                        <div class="text">Emploi du temps</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showHomework">
+                    <div class="menu-item">
+                        <div class="icon text-book">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <div class="text">Cahier de texte</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showNote">
+                    <div class="menu-item">
+                        <div class="icon notes">
+                            <i class="fa-regular fa-newspaper"></i>
+                        </div>
+                        <div class="text">Notes</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showAbsence">
+                    <div class="menu-item">
+                        <div class="icon attendance">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="text">Absences/Retards</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showChat">
+                    <div class="menu-item">
+                        <div class="icon chat">
+                            <i class="fa-regular fa-comments"></i>
+                        </div>
+                        <div class="text">Chat rapide</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showCloud">
+                    <div class="menu-item">
+                        <div class="icon cloud">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <div class="text">Cloud</div>
+                    </div>
+                </a>
+                <a href="control.php?action=showCash">
+                    <div class="menu-item">
+                        <div class="icon wallet">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                        </div>
+                        <div class="text">Porte monnaie</div>
+                    </div>
+                </a>
+                <a href="control.php?action=deConnect">
+                    <div class="menu-item logout">
+                        <div class="icon">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </div>
+                        <div class="text">Déconnexion</div>
+                    </div>
+                </a>
+            </nav>
         </div>
-    <?php endforeach; ?>
-</div>
-
-<!-- Bloc des statistiques -->
-<div class="absence-info">
-    <h3>Statistiques d'absences</h3>
-    <ul>
-        <li><strong>Nombre total d'absences :</strong> <?= $nbAbsence ?></li>
-        <li><strong>Temps total justifié :</strong> <?= gmdate("H:i:s", $tempJustifie) ?></li>
-        <li><strong>Temps total non justifié :</strong> <?= gmdate("H:i:s", $tempNonJustifie) ?></li>
-        <li><strong>Temps total :</strong> <?= gmdate("H:i:s", $tempTotal) ?></li>
-    </ul>
-</div>
+        <!-- Main content -->
+        <div class="container">
+            <header>
+                <h1>Absence</h1>
+                <div class="filters"></div>
+            </header>
+            <main class="task-list">
+        
+                    <?php
+                    $stmt = showAbsence($_SESSION['user_id']);
+                    $listAbsence = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $tempTotal = 0;
+                    $tempJustifie = 0;
+                    $tempNonJustifie = 0;
+                    $nbAbsence = 0;
+                    foreach ($listAbsence as $absence):
+                        $tempsAbsence = calculerTemps($absence['abs_date_debut'], $absence['abs_date_fin']);
+                        $tempTotal += $tempsAbsence;
+                        $nbAbsence++;
+                        if ($absence['abs_justif'] == 1) {
+                            $tempJustifie += $tempsAbsence;
+                        } else {
+                            $tempNonJustifie += $tempsAbsence;
+                        }
+                    ?>
+                    <div class="task">
+                        <p><strong>Date de début:</strong> <?= $absence['abs_date_debut'] ?></p>
+                        <p><strong>Matière:</strong> <?= $absence['matiere_nom'] ?></p>
+                        <p><strong>Description:</strong> <?= $absence['abs_desc'] ?></p>
+                        <p><strong>Durée:</strong> <?= gmdate("H:i:s", $tempsAbsence) ?></p>
+                        <?php if ($absence['abs_justif'] == 0): ?>
+                            <form action="control.php?action=justifAbsence" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="absence_id" value="<?= htmlspecialchars($absence['abs_id']) ?>">
+                                <label for="justif_file">Télécharger un justificatif :</label>
+                                <input type="file" name="justif_file" required>
+                                <button type="submit">Envoyer</button>
+                            </form>
+                        <?php else: ?>
+                            <?php if ($absence['abs_justif_valid'] == 1): ?>
+                                <p><strong>Status:</strong> Absence justifiée</p>
+                            <?php else: ?>
+                                <p><strong>Status:</strong> En attente de validation</p>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </main>
+        </div>
+        <!-- Bloc des statistiques -->
+        <div class="absence-info">
+            <h3>Statistiques d'absences</h3>
+            <ul>
+                <li><strong>Nombre total d'absences :</strong> <?= $nbAbsence ?></li>
+                <li><strong>Temps total justifié :</strong> <?= gmdate("H:i:s", $tempJustifie) ?></li>
+                <li><strong>Temps total non justifié :</strong> <?= gmdate("H:i:s", $tempNonJustifie) ?></li>
+                <li><strong>Temps total :</strong> <?= gmdate("H:i:s", $tempTotal) ?></li>
+            </ul>
+        </div>
+    </div>
 
 </body>
 </html>

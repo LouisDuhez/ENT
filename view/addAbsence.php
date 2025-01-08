@@ -21,7 +21,7 @@
         }
 
         h1 {
-            color: white;
+            color: black;
             font-size: 24px;
             text-align: center;
             margin-bottom: 20px;
@@ -256,8 +256,9 @@
     </style>
 </head>
 <body>
-    <h1>Ajouter une absence</h1>
+    
     <form method="POST" action="control.php?action=addAbsence">
+    <h1>Ajouter une absence</h1>
         <label for="student">Étudiant :</label>
         <select name="student" id="student" required>
             <?php 

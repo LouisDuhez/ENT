@@ -147,6 +147,18 @@ function showHomework($user_id)
     return $stmt;
 }
 
+function showHomeworkMatiere()
+{
+    $db = dbConnect();
+    $requete = ('SELECT DISTINCT matiere.matiere_nom
+    FROM devoir
+    INNER JOIN matiere ON devoir.fk_matiere_id = matiere.matiere_id;');
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    return $stmt;
+
+}
+
 function showChat($user_id)
 {
     $db = dbConnect();
@@ -362,6 +374,31 @@ function addHomework($devoir_nom, $devoir_desc, $devoir_date_fin, $fk_matiere_id
     $stmt->bindParam(':fk_matiere_id', $fk_matiere_id, PDO::PARAM_INT);
     $stmt->bindParam(':fk_user_id', $fk_user_id, PDO::PARAM_INT);
     return $stmt->execute();
+}
+
+function updateHomework($devoir_id, $fichier, $user_id) {
+    $db = dbConnect();
+
+    // Mise à jour uniquement si nécessaire
+    if (!empty($fichier) && $fichier['error'] == 0) {
+        $uploadDir = 'homeWorkUploads/';
+        $filename = basename($fichier['name']);
+        $target_path = $uploadDir . $filename;
+
+        if (move_uploaded_file($fichier['tmp_name'], $target_path)) {
+            // Mise à jour du fichier dans la DB
+            $updateFile = 'UPDATE devoir
+                           SET devoir_fichier = :filename
+                           WHERE devoir_id = :devoir_id AND fk_user_id = :user_id';
+            $stmt = $db->prepare($updateFile);
+            $stmt->bindParam(':filename', $filename);
+            $stmt->bindParam(':devoir_id', $devoir_id, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+
+    return true;
 }
 
 function showAllAbsences()

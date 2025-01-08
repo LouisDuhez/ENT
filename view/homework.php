@@ -108,11 +108,15 @@
             <header>
                 <h1>Cahier de Texte</h1>
                 <div class="filters">
-                    <button>Anglais</button>
-                    <button>SAÉ 3.02-A</button>
-                    <button>Motion design</button>
-                    <button>Droit</button>
-                    <button>SAÉ 3.01</button>
+                    <?php
+                        $stmt = showHomeworkMatiere();
+                        $listHomeworkMatiere = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($listHomeworkMatiere as $matiere) {
+                            ?>
+                            <button class="filter-button"><?= $matiere['matiere_nom'] ?></button>
+                            <?php 
+                        }
+                    ?>
                 </div>
             </header>
             <main class="task-list">
@@ -143,8 +147,17 @@
                             }
                         } else {
 
-                            echo "<a class='action-link modif-link' href='control.php?action=modifHomework&idWork=" . $work['devoir_id'] . "'>Modifier le devoir rendu</a>";
+                            echo "<a class='action-link modif-link' href='control.php?action=showHomework&modif=true&idWork=" . $work['devoir_id'] . "'>Modifier le devoir rendu</a>";
                         }
+                        if (isset($_GET['modif']) && $_GET['modif'] == true && $_GET['idWork'] == $work['devoir_id']) { ?>
+                            <form action="control.php?action=updateHomework" method="POST" enctype="multipart/form-data" class="upload-form">
+    <input type="hidden" name="idWork" value="<?= $work['devoir_id'] ?>">
+    <input type="file" name="fichier" required>
+    <button type="submit" class="action-link rendre-link">Modifier le fichier</button>
+</form>
+                       <?php }
+
+
                         ?>
                     </div>
                 <?php
