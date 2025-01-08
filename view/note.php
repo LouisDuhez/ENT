@@ -1,110 +1,173 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes et Compétences</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding-top: 30px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-
-        .competence {
-            background-color: #fff;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .competence h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #0056b3;
-        }
-
-        .matiere {
-            font-size: 1.2rem;
-            margin-left: 20px;
-            color: #444;
-        }
-
-        .note {
-            font-size: 1.1rem;
-            color: #e67e22;
-            font-weight: bold;
-        }
-
-        .matiere .note {
-            color: #2ecc71;
-        }
-
-        .note {
-            display: inline-block;
-            margin-left: 10px;
-            padding: 3px 10px;
-            background-color: #f1c40f;
-            border-radius: 5px;
-            color: white;
-        }
-
-        .matiere {
-            margin-bottom: 15px;
-        }
-    </style>
+    <title>Notes - ENT</title>
+    <link rel="stylesheet" href="./notes.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="container">
-        <h1>Mes Notes et Compétences</h1>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-picture">
+                <div class="profile-icon"></div>
+            </div>
+        </div>
 
-        <?php
-        $competences = [1, 2, 3, 4, 5];
-        
-        // Tableau pour organiser les matières par compétence
-        $competence_notes = [];
+        <nav class="menu">
+            <a href="control.php?action=home.php">
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <div class="text">Accueil</div>
+                </div>
+            </a>
 
-        foreach ($competences as $competence_id) {
-            $stmt = showNoteCompetence($_SESSION['user_id'], $competence_id);
-            $listNote = $stmt->fetchall(PDO::FETCH_ASSOC);
+            <a href="control.php?action=showSchedule">
+                <div class="menu-item">
+                    <div class="icon timetable">
+                        <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div class="text">Emploi du temps</div>
+                </div>
+            </a>
 
-            // Si des notes existent pour cette compétence
-            if (count($listNote) > 0) {
-                // Organiser les matières et notes sous chaque compétence
-                foreach ($listNote as $note) {
-                    $competence_notes[$note['competence_nom']][] = $note;
-                }
-            }
-        }
+            <a href="control.php?action=showHomework">
+                <div class="menu-item">
+                    <div class="icon text-book">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div class="text">Cahier de texte</div>
+                </div>
+            </a>
 
-        // Affichage des compétences et des matières avec leurs notes
-        foreach ($competence_notes as $competence_nom => $notes) {
-            echo "<div class='competence'>";
-            echo "<h2>Compétence: " . $competence_nom . "</h2>";
+            <a href="control.php?action=showNote">
+                <div class="menu-item active">
+                    <div class="icon notes">
+                        <i class="fa-regular fa-newspaper"></i>
+                    </div>
+                    <div class="text">Notes</div>
+                </div>
+            </a>
 
-            foreach ($notes as $note) {
-                echo "<div class='matiere'>";
-                echo "<span>" . $note['matiere_nom'] . "</span>";
-                echo "<span class='note'>" . $note['note_number'] . "</span>";
-                echo "</div>";
-            }
+            <a href="control.php?action=showAbsence">
+                <div class="menu-item">
+                    <div class="icon attendance">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="text">Absences/Retards</div>
+                </div>
+            </a>
 
-            echo "</div>";
-        }
-        ?>
+            <a href="control.php?action=showChat">
+                <div class="menu-item">
+                    <div class="icon chat">
+                        <i class="fa-regular fa-comments"></i>
+                    </div>
+                    <div class="text">Chat rapide</div>
+                </div>
+            </a>
+
+            <a href="control.php?action=showCloud">
+                <div class="menu-item">
+                    <div class="icon cloud">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <div class="text">Cloud</div>
+                </div>
+            </a>
+
+            <a href="control.php?action=showCash">
+                <div class="menu-item">
+                    <div class="icon wallet">
+                        <i class="fa-solid fa-money-check-dollar"></i>
+                    </div>
+                    <div class="text">Porte monnaie</div>
+                </div>
+            </a>
+
+            <a href="control.php?action=deConnect">
+                <div class="menu-item logout">
+                    <div class="icon">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </div>
+                    <div class="text">Déconnexion</div>
+                </div>
+            </a>
+        </nav>
     </div>
+
+    <div class="table">
+        <h1>Notes</h1>
+        <table class="table-notes">
+            <thead>
+                <tr>
+                    <th>Compétences</th>
+                    <th>Matières</th>
+                    <th>Coefficients</th>
+                    <th>Moyennes</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $competences = [1, 2, 3, 4, 5];
+                $competence_notes = [];
+
+                foreach ($competences as $competence_id) {
+                    $stmt = showNoteCompetence($_SESSION['user_id'], $competence_id);
+                    $listNote = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    // Organiser les matières et notes sous chaque compétence
+                    if (count($listNote) > 0) {
+                        foreach ($listNote as $note) {
+                            $competence_notes[$note['competence_nom']][] = $note;
+                        }
+                    }
+                }
+
+                // Affichage des compétences et des matières avec leurs notes
+                foreach ($competence_notes as $competence_nom => $notes) {
+                    foreach ($notes as $note) {
+                        echo "<tr>";
+                        echo "<td>" . $competence_nom . "</td>";
+                        echo "<td>" . $note['matiere_nom'] . "</td>";
+                        echo "<td>" . $note['note_coef'] . "</td>";
+                        echo "<td>" . $note['note_number'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="footer-label">Moyenne générale</td>
+                    <td>
+                        <?php
+                        // Calcul de la moyenne générale (ajuster selon la logique du calcul)
+                        $total_notes = 0;
+                        $total_coefficients = 0;
+                        foreach ($competence_notes as $notes) {
+                            foreach ($notes as $note) {
+                                $total_notes += $note['note_number'] * $note['note_coef'];
+                                $total_coefficients += $note['note_coef'];
+                            }
+                        }
+                        $moyenne_generale = $total_notes / $total_coefficients;
+                        echo round($moyenne_generale, 2);
+                        ?>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
 </body>
 </html>

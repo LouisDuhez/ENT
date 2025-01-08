@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -300,6 +300,22 @@ else {
                     break;
                         }
                     }
+                    case 'updateHomework':
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idWork'])) {
+                            $devoir_id = $_POST['idWork'];
+                            $fichier = $_FILES['fichier'] ?? null;
+                    
+                            // Mise à jour du devoir
+                            
+                    
+                            if ($result = updateHomework($devoir_id, $fichier, $_SESSION['user_id'])) {
+                                echo "Devoir modifié avec succès.";
+                                include('view/homework.php');
+                            } else {
+                                echo "Erreur lors de la modification.";
+                            }
+                        }
+                        break;
                 case 'backJustifAbsence' :
                 include ('view/absencejustif.php');
                 break;

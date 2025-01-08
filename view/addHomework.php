@@ -90,9 +90,10 @@
     </style>
 </head>
 <body>
-    <h1>Ajouter un devoir</h1>
+    
 
     <form action="control.php?action=addHomework" method="POST" enctype="multipart/form-data">
+    <h1>Ajouter un devoir</h1>
         <div>
             <label for="devoir_nom">Nom du devoir :</label>
             <input type="text" id="devoir_nom" name="devoir_nom" required>
