@@ -1,0 +1,317 @@
+/* Styles généraux */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #001947;
+    color: white;
+  }
+  
+  header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ffffff33;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Balance section */
+  .balance-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .balance-card {
+    background: white;
+    color: #001947;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .balance-date {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .balance-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.5rem 0 0;
+  }
+  
+  .qr-code img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Student card section */
+  .student-card-section h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .card-details {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .card-details img {
+    width: 200px;
+    height: auto;
+    border-radius: 15px;
+    border: 1px solid white;
+  }
+  
+  .student-info p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  /* History section */
+  .history-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .view-all {
+    background: #ffffff33;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ffffff33;
+  }
+  
+  .transaction-table th {
+    font-size: 0.9rem;
+  }
+  
+  .transaction-table td {
+    font-size: 0.85rem;
+  }
+  
+  /* Recharge section */
+  .recharge-section button {
+    background: #ffffff33;
+    color: white;
+    border: none;
+    padding: 0.7rem 1rem;
+    margin: 0.2rem 0;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  @media (min-width: 768px) {
+    .balance-section {
+      grid-template-columns: 1fr 1fr;
+    }
+  
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  
+    .recharge-section button {
+      width: auto;
+      margin: 0 0.5rem 0.5rem 0;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1200px;
+      padding: 2rem;
+    }
+  
+    .balance-section {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+
+
+  .sidebar{
+    display: none;
+  }
+  
+  /* Liste des tâches */
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .task {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .task h3 {
+    margin: 0 0 10px;
+  }
+  
+  .task a {
+    background-color: #A22D2D;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .task a:hover {
+    background-color: #C14646;
+  }
+  
+  .menu-item.logout {
+    padding-top: auto;
+  }
+  
+  /* Design desktop */
+  @media (min-width: 768px) {
+    .task-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        padding: 24px 16px;
+        background: white;
+        border-left: 1px solid #DDE1E6;
+        border-right: 1px solid #DDE1E6;
+        display: flex;
+        flex-direction: column;
+        display: block;
+      }
+      
+      .profile-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      
+      .profile-picture {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background-image: url(theo.jpeg);
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      /* .profile-icon {
+        width: 24px;
+        height: 24px;
+        background: #C1C7CD;
+      } */
+      
+      .menu {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 8px;
+        border-bottom: 1px solid #F2F4F8;
+      }
+      
+      .menu-item.active {
+        background: #A31F21;
+        color: white;
+      }
+  
+      .menu-item.active .icon {
+        background: #A31F21;
+        color: white;
+      }
+      
+      .menu-item.active .text {
+        color: white;
+      }
+      
+      .menu-item .icon {
+        width: 24px;
+        height: 24px;
+        margin-top: 5px;
+        margin-right: 8px;
+        color: rgb(0, 0, 0);
+        /* background: #21272A; */
+      }
+      
+      .menu-item .text {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 500;
+        color: #21272A;
+      }
+    
+      .page{
+        display: flex;
+        align-items: center;
+      }
+
+      a{
+        text-decoration: none;
+      }
+
+      .align{
+        display: flex;
+        flex-direction: column;
+        margin-inline: auto;
+      }
+
+
+      .center{
+        display: flex;
+      }
+    }

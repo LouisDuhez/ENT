@@ -23,12 +23,14 @@
                 </div>
             </div>
             <nav class="menu">
-                <div class="menu-item active">
-                    <div class="icon">
-                        <i class="fa-solid fa-house"></i>
+                <a href="control.php?action=home">
+                    <div class="menu-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div class="text">Accueil</div>
                     </div>
-                    <div class="text">Accueil</div>
-                </div>
+                </a>
                 <a href="control.php?action=showSchedule">
                     <div class="menu-item">
                         <div class="icon timetable">
@@ -54,7 +56,7 @@
                     </div>
                 </a>
                 <a href="control.php?action=showAbsence">
-                    <div class="menu-item">
+                    <div class="menu-item active">
                         <div class="icon attendance">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>

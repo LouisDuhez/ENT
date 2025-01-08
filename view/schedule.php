@@ -15,14 +15,14 @@
         </div>
 
         <nav class="menu">
-            <a href="control.php?action=home.php">
-                <div class="menu-item">
-                    <div class="icon">
-                        <i class="fa-solid fa-house"></i>
+        <a href="control.php?action=home">
+                    <div class="menu-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div class="text">Accueil</div>
                     </div>
-                    <div class="text">Accueil</div>
-                </div>
-            </a>
+                </a>
 
             <a href="control.php?action=showSchedule">
                 <div class="menu-item active">

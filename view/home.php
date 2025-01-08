@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    $stmt = saveInfoUser($email);
+    $stmt = saveInfoUser($_SESSION['user']);
     $infoUser = $stmt->fetch(PDO::FETCH_ASSOC);
     $_SESSION['user_id'] = $infoUser['user_id'];
     ?>
@@ -94,7 +94,7 @@
                 </div>
             </a>
             <?php
-             $stmt = userIsAdmin($email);
+             $stmt = userIsAdmin($_SESSION['user']);
              $infoUser = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($infoUser['user_admin'] == 1) {
                 ?>

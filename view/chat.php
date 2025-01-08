@@ -43,7 +43,7 @@
             </a>
 
             <a href="control.php?action=showNote">
-                <div class="menu-item active">
+                <div class="menu-item">
                     <div class="icon notes">
                         <i class="fa-regular fa-newspaper"></i>
                     </div>
@@ -61,7 +61,7 @@
             </a>
 
             <a href="control.php?action=showChat">
-                <div class="menu-item">
+                <div class="menu-item active">
                     <div class="icon chat">
                         <i class="fa-regular fa-comments"></i>
                     </div>

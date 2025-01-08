@@ -11,7 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cash.css" />
   </head>
   <body>
     <div class="page">
@@ -23,12 +23,14 @@
         </div>
 
         <nav class="menu">
-          <div class="menu-item active">
-            <div class="icon">
-              <i class="fa-solid fa-house"></i>
-            </div>
-            <div class="text">Accueil</div>
-          </div>
+        <a href="control.php?action=home">
+                    <div class="menu-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div class="text">Accueil</div>
+                    </div>
+                </a>
 
           <a href="control.php?action=showSchedule">
             <div class="menu-item">
@@ -85,7 +87,7 @@
           </a>
 
           <a href="control.php?action=showCash">
-            <div class="menu-item">
+            <div class="menu-item active">
               <div class="icon wallet">
                 <i class="fa-solid fa-money-check-dollar"></i>
               </div>
@@ -115,14 +117,14 @@
                 <p class="balance-amount">10€</p>
               </div>
               <div class="qr-code">
-                <img src="qr.png" alt="QR Code" />
+                <img src="img/qr.png" alt="QR Code" />
               </div>
             </section>
 
             <section class="student-card-section">
               <h2>Ma carte étudiante</h2>
               <div class="card-details">
-                <img src="carte.png" alt="Carte étudiante" />
+                <img src="img/carte.png" alt="Carte étudiante" />
                 <div class="student-info">
                   <p><strong>Prénom et nom:</strong> Théo DE OLIVEIRA</p>
                   <p><strong>INE:</strong> 276289</p>

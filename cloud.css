@@ -1,0 +1,409 @@
+        /* Mise en page générale */
+      body {
+          font-family: 'Arial', sans-serif;
+          background-color: #f1f2f6;
+          margin: 0;
+          padding: 0;
+          background-color: #001947;
+      }
+
+      
+
+      .container {
+          display: flex;
+          height: 80vh;
+          width: 100%;
+          margin: 20px;
+          flex-direction: column;
+          gap: 32px;
+      }
+
+      .top-folder {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .top-folder a {
+          color: black;
+          text-decoration: none;
+          font-size: 1rem;
+          padding: 10px 20px;
+          background-color: white;
+          border-radius: 16px;
+          display: block;
+      }
+
+      .top-folder a:hover {
+          text-decoration: underline;
+      }
+
+      .top-folder form {
+        background-color: white;
+        color: black;
+        padding: 10px;
+        border-radius: 16px;
+      }
+      .top-folder input {
+          border: none;
+          border-bottom: solid black 1px;
+      }
+
+      .top-folder button {
+          background-color: green;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+
+      .top-folder button:hover {
+          background-color: darkgreen;
+      }
+
+
+      /* Section des dossiers à gauche */
+      .folders {
+          width: 90%;
+          padding-right: 20px;
+          color: white;
+      }
+
+      .folders h2 {
+          font-size: 1.5em;
+          margin-bottom: 20px;
+      }
+
+      .folder-item {
+          display: flex;
+          align-items: center;
+          font-size: 1.2em;
+          padding: 10px 15px;
+          transition: background-color 0.3s ease;
+          cursor: pointer;
+          text-decoration: none;
+          border-bottom: 3px solid white;
+          width: 100%;
+      }
+
+      .folder-item:hover {
+          background-color: grey;
+          color: white;
+          
+      }
+
+      .folder-item i {
+          margin-right: 10px;
+      }
+
+      .folder-item a {
+          text-decoration: none;
+          color: inherit;
+      }
+
+      /* Section des fichiers à droite */
+      .top-file {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        gap: 10px;
+      }
+
+      .top-file h1 {
+        font-size: 2em;
+        margin-right: auto;
+      }
+
+      .trait-blanc {
+        width: 30%;
+        height: 3px;
+        background-color: white;
+      }
+
+      .files-container {
+        width: 90%;
+        
+      }
+      
+
+      .files {
+         
+          padding-left: 20px;
+          background-color: #fff;
+          border-radius: 30px;
+          width: 100%;
+          height: 100%;
+          
+      }
+
+      .files h2 {
+          font-size: 1.5em;
+      }
+
+      .files ul {
+          list-style-type: none;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
+          grid-gap: 16px;
+      }
+
+      .files li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+          margin: 10px 0;
+          padding: 8px 10px;
+          border: 1px solid #ddd;
+          background-color: #fafafa;
+          transition: border 0.3s ease;
+          border : solid 3px transparent;
+      }
+
+      .files li:hover {
+          border : solid 3px #007bff;
+      }
+
+      .files a {
+        color: black;
+          text-decoration: none;
+      }
+
+      .no-folder {
+          font-size: 1.2em;
+          margin-top: 50px;
+      }
+
+      /* Formulaire de téléchargement */
+      .upload-form {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+      }
+
+      .upload-form input[type="file"] {
+          margin-bottom: 10px;
+      }
+
+      .upload-form button {
+          padding: 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+      }
+
+      .upload-form button:hover {
+          background-color: #0056b3;
+      }
+
+.folder-item a.delete-link {
+  color: whitea;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+.folder-item a.delete-link:hover {
+  color: red;
+}
+
+/* Mise à jour pour les fichiers */
+.files li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fafafa;
+  transition: border 0.3s ease;
+  border: solid 3px transparent;
+}
+
+.files li a.delete-link {
+  margin-left: auto;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.files li a.delete-link:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.deleteFile {
+  color: red !important;
+}
+.validFile {
+  color: green !important;
+}
+
+@media (min-width: 850px) {
+  .container {
+    flex-direction: row;
+  }
+  .sidebar {
+    width: 280px;
+    height: 100vh;
+  }
+  .content {
+    width: calc(100% - 280px);
+  }
+  .folders {
+    width: 30%;
+  }
+  .files-container {
+    width: 70%;
+  }
+}
+
+
+
+
+
+.sidebar{
+  display: none;
+}
+
+/* Liste des tâches */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.task {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.task h3 {
+  margin: 0 0 10px;
+}
+
+.task a {
+  background-color: #A22D2D;
+  border: none;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task a:hover {
+  background-color: #C14646;
+}
+
+.menu-item.logout {
+  padding-top: auto;
+}
+
+/* Design desktop */
+@media (min-width: 768px) {
+  .task-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .sidebar {
+      width: 250px;
+      height: 100vh;
+      padding: 24px 16px;
+      background: white;
+      border-left: 1px solid #DDE1E6;
+      border-right: 1px solid #DDE1E6;
+      display: flex;
+      flex-direction: column;
+      display: block;
+    }
+    
+    .profile-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .profile-picture {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-image: url(theo.jpeg);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* .profile-icon {
+      width: 24px;
+      height: 24px;
+      background: #C1C7CD;
+    } */
+    
+    .menu {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 8px;
+      border-bottom: 1px solid #F2F4F8;
+    }
+    
+    .menu-item.active {
+      background: #A31F21;
+      color: white;
+    }
+
+    .menu-item.active .icon {
+      background: #A31F21;
+      color: white;
+    }
+    
+    .menu-item.active .text {
+      color: white;
+    }
+    
+    .menu-item .icon {
+      width: 24px;
+      height: 24px;
+      margin-top: 5px;
+      margin-right: 8px;
+      color: rgb(0, 0, 0);
+      /* background: #21272A; */
+    }
+    
+    .menu-item .text {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 500;
+      color: #21272A;
+    }
+  
+    .page{
+      display: flex;
+    }
+
+    a{
+      text-decoration: none;
+    }
+}
+    
