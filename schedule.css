@@ -1,0 +1,171 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+/*-----NAVBAR--------*/
+body {
+    background-color: #001947;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    margin: 0;
+  }
+  
+
+
+h1 {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+  
+
+  
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    padding: 24px 16px;
+    background: white;
+    border-left: 1px solid #DDE1E6;
+    border-right: 1px solid #DDE1E6;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .profile-picture {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-image: url(img/jesse.jpeg); /* Remplace cette URL par l'image de profil appropriée */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 8px;
+    border-bottom: 1px solid #F2F4F8;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-item.active {
+    background-color: #A31F21;
+    color: white;
+  }
+  
+  .menu-item.active .text {
+    color: white;
+  }
+  
+  .menu-item .icon {
+    width: 24px;
+    height: 24px;
+    margin-top: 5px;
+    margin-right: 8px;
+  }
+  
+  .menu-item .text {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #21272A;
+  }
+  
+  .menu-item.logout {
+    padding-top: 150px;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+
+  
+/*---------------------------------------*/
+
+
+.edt-container {
+    margin-inline: auto;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} 
+
+
+.edt-container h2 {
+    text-transform: uppercase;
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 2px solid #ddd;
+    text-align: center;
+}
+
+.edt-container a {
+    color: white;
+    font-style: italic;
+}
+
+.edt-container a:hover {
+    text-decoration: underline;
+}
+
+table tr th,
+table tr td {
+    display: none;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    display: table-cell;
+}
+
+
+@media (min-width: 768px) {
+
+    .edt-container {
+        width: 60%;
+        margin-inline: auto;
+    }
+
+    table tr th,
+    table tr td {
+        display: table-cell;
+    }
+}
+
+
+
+
+
+
+
+
+
+
