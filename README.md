@@ -18,11 +18,11 @@ Tout d’abord, il faut télécharger le dossier "ENT-JustineTheoLouis" contenan
 
 Pour ce qui est des données, il faut créer sa base de données en local et importer le fichier .sql :
 
-démarrer XAMPP
-aller sur http://localhost/phpmyadmin
-cliquer sur "nouvelle base de données"
-donner un nom à la base
-aller dans "importer" et choisir le fichier "ent"
-cliquer sur le bouton "importer" en bas de la page
-Si vous êtes un utilisateur de mac, modifier la fonction  dbConnect dans "model.php" (dbname=ent;port=8889', 'root', 'root'). Une fois que la base est bien liée au site, il suffit d’y accéder avec l’adresse:
+- démarrer XAMPP
+- aller sur http://localhost/phpmyadmin
+- cliquer sur "nouvelle base de données"
+- donner un nom à la base
+- aller dans "importer" et choisir le fichier "ent"
+- cliquer sur le bouton "importer" en bas de la page
+- Si vous êtes un utilisateur de mac, modifiez la fonction  dbConnect dans "model.php" (dbname=ent;port=8889', 'root', 'root'). Une fois que la base est bien liée au site, il suffit d’y accéder avec l’adresse:
 
