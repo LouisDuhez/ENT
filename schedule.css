@@ -1,3 +1,4 @@
+
 *,
 *::before,
 *::after{
@@ -21,10 +22,38 @@ h1 {
     margin-bottom: 20px;
     margin-top: 0;
   }
-  
 
-  
 .sidebar {
+    display: none;
+}
+  @media (min-width: 850px) {
+    .container {
+      flex-direction: row;
+    }
+    .sidebar {
+      width: 280px;
+      height: 100vh;
+    }
+    .content {
+      width: calc(100% - 280px);
+    }
+    .folders {
+      width: 30%;
+    }
+    .files-container {
+      width: 70%;
+    }
+  }
+  /* Design desktop */
+  @media (min-width: 768px) {
+    .task-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  
+      
+  .sidebar {
     width: 250px;
     height: 100vh;
     padding: 24px 16px;
@@ -91,12 +120,30 @@ h1 {
     color: #21272A;
   }
   
-  .menu-item.logout {
-    padding-top: 150px;
+  .logout {
+    margin-top: auto;
   }
   
   a {
     text-decoration: none;
+    color: black;
+  }
+  
+  nav i {
+    color: black;
+  }
+  
+  a:hover {
+    background-color: grey;
+  }
+    
+      .page{
+        display: flex;
+      }
+  
+      a{
+        text-decoration: none;
+      }
   }
 
   

@@ -15,7 +15,7 @@
         </div>
 
         <nav class="menu">
-            <a href="control.php?action=home.php">
+            <a href="control.php?action=home">
                 <div class="menu-item">
                     <div class="icon">
                         <i class="fa-solid fa-house"></i>
@@ -87,8 +87,8 @@
                 </div>
             </a>
 
-            <a href="control.php?action=deConnect">
-                <div class="menu-item logout">
+            <a class="logout" href="control.php?action=deConnect">
+                <div class="menu-item">
                     <div class="icon">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </div>
