@@ -1,3 +1,5 @@
+@import url(nav.css);
+
 *,
 *::before,
 *::after{
@@ -9,126 +11,6 @@ body {
   background-color: #001947;
   font-family: 'Roboto', sans-serif;
   display: flex;
-}
-
-@media (min-width: 850px) {
-  .container {
-    flex-direction: row;
-  }
-  .sidebar {
-    width: 280px;
-    height: 100vh;
-  }
-  .content {
-    width: calc(100% - 280px);
-  }
-  .folders {
-    width: 30%;
-  }
-  .files-container {
-    width: 70%;
-  }
-}
-/* Design desktop */
-@media (min-width: 768px) {
-  .task-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-    
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  padding: 24px 16px;
-  background: white;
-  border-left: 1px solid #DDE1E6;
-  border-right: 1px solid #DDE1E6;
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.profile-picture {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background-image: url(img/jesse.jpeg); /* Remplace cette URL par l'image de profil appropriée */
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.menu {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 8px;
-  border-bottom: 1px solid #F2F4F8;
-  transition: background-color 0.3s;
-}
-
-.menu-item.active {
-  background-color: #A31F21;
-  color: white;
-}
-
-.menu-item.active .text {
-  color: white;
-}
-
-.menu-item .icon {
-  width: 24px;
-  height: 24px;
-  margin-top: 5px;
-  margin-right: 8px;
-}
-
-.menu-item .text {
-  flex: 1;
-  font-size: 16px;
-  font-weight: 500;
-  color: #21272A;
-}
-
-.logout {
-  margin-top: auto;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-nav i {
-  color: black;
-}
-
-a:hover {
-  background-color: grey;
-}
-  
-    .page{
-      display: flex;
-    }
-
-    a{
-      text-decoration: none;
-    }
 }
 
 .header {
@@ -154,88 +36,14 @@ a:hover {
   margin-left: auto;
 }
 
-@media screen and (min-width: 1024px) {
-  .sidebar {
-    width: 250px;
-    height: 100vh;
-    padding: 24px 16px;
-    background: white;
-    border-left: 1px solid #DDE1E6;
-    border-right: 1px solid #DDE1E6;
-    display: flex;
-    flex-direction: column;
-    display: none;
-  }
-  
-  .profile-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .profile-picture {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background-image: url(img/jesse.jpeg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* .profile-icon {
-    width: 24px;
-    height: 24px;
-    background: #C1C7CD;
-  } */
-  
-  .menu {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .menu-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 8px;
-    border-bottom: 1px solid #F2F4F8;
-  }
-  
-  .menu-item.active {
-    background: #A31F21;
-  }
-  
-  .menu-item.active .text {
-    color: white;
-  }
-  
-  .menu-item .icon {
-    width: 24px;
-    height: 24px;
-    margin-top: 5px;
-    margin-right: 8px;
-    /* background: #21272A; */
-  }
-  
-  .menu-item .text {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 500;
-    color: #21272A;
-  }
-  
-  .menu-item.logout {
-    padding-top: 150px;
-  }
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
 
-  a{
-    text-decoration: none;
-  }
-
-  .header{
+.header{
     width: 100%;
     background-color: red;
     height: 50px;
@@ -258,13 +66,9 @@ a:hover {
     margin-left: auto;
   }
 
-  
-
- 
-
-  @media screen and (min-width: 1024px) {
-    .sidebar{
-      display: block;
-  }
-}
-}
+  @media (min-width: 768px) {
+    .page {
+          display: flex;
+          flex-direction: row;
+      }
+    }
