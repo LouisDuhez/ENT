@@ -126,13 +126,13 @@
           </div>
           <!-- ------------------------ Fin menu ------------------------------- -->
         <!-- Main Content -->
-        <section class="main-content">
-            <div class="header">
-                <h1>Accueil</h1>
-            </div>
-            <div class="container">
-                <!-- Contenu ici -->
-            </div>
+        <section class="container">
+          <div class="top-container">
+            <div class="trait-blanc"></div>
+            <h1>Accueil</h1>
+            <div class="trait-blanc"></div>
+          </div>
+            
         </section>
     </div>
     <script src="script.js"></script>

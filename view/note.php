@@ -106,67 +106,116 @@
           </div>
           <!-- ------------------------ Fin menu ------------------------------- -->
         <div class="container">
-            <div class="table">
-                <h1>Notes</h1>
-                <table class="table-notes">
-                    <thead>
-                        <tr>
-                            <th>Compétences</th>
-                            <th>Matières</th>
-                            <th>Coefficients</th>
-                            <th>Moyennes</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $competences = [1, 2, 3, 4, 5];
-                        $competence_notes = [];
-                        foreach ($competences as $competence_id) {
-                            $stmt = showNoteCompetence($_SESSION['user_id'], $competence_id);
-                            $listNote = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            // Organiser les matières et notes sous chaque compétence
-                            if (count($listNote) > 0) {
-                                foreach ($listNote as $note) {
-                                    $competence_notes[$note['competence_nom']][] = $note;
-                                }
-                            }
-                        }
-                        // Affichage des compétences et des matières avec leurs notes
-                        foreach ($competence_notes as $competence_nom => $notes) {
-                            foreach ($notes as $note) {
-                                echo "<tr>";
-                                echo "<td>" . $competence_nom . "</td>";
-                                echo "<td>" . $note['matiere_nom'] . "</td>";
-                                echo "<td>" . $note['note_coef'] . "</td>";
-                                echo "<td>" . $note['note_number'] . "</td>";
-                                echo "</tr>";
-                            }
-                        }
-                        ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4" class="footer-label">Moyenne générale</td>
-                            <td>
-                                <?php
-                                // Calcul de la moyenne générale (ajuster selon la logique du calcul)
-                                $total_notes = 0;
-                                $total_coefficients = 0;
-                                foreach ($competence_notes as $notes) {
-                                    foreach ($notes as $note) {
-                                        $total_notes += $note['note_number'] * $note['note_coef'];
-                                        $total_coefficients += $note['note_coef'];
-                                    }
-                                }
-                                $moyenne_generale = $total_notes / $total_coefficients;
-                                echo round($moyenne_generale, 2);
-                                ?>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                <div class="top-container">
+                <div class="trait-blanc"></div>
+                  <h1>Notes</h1>
+                  <div class="trait-blanc"></div>
+                </div>
+                <?php
+$user_id = $_SESSION['user_id'];
+$competences = [1, 2, 3, 4, 5]; // ID des compétences
+echo "<div class='tableNote'>";
+
+foreach ($competences as $competence_id) {
+    // Récupérer le nom de la compétence
+    $db = dbConnect();
+    $stmt = $db->prepare("SELECT competence_nom FROM competence WHERE competence_id = :competence_id");
+    $stmt->bindParam(":competence_id", $competence_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $competence = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérifie si la compétence existe
+    if ($competence) {
+        echo "<h2>Compétence : {$competence['competence_nom']}</h2>";
+    } else {
+        echo "<h2>Compétence inconnue (ID : $competence_id)</h2>";
+        continue;
+    }
+
+    // Récupérer les notes pour cette compétence
+    $notes = showNoteCompetence($user_id, $competence_id);
+
+    // Initialisation des variables pour la moyenne générale de la compétence
+    $total_moyenne_competence = 0;
+    $total_coef_competence = 0;
+
+    echo "<table border='1'>
+            <tr>
+              <th>Matière</th>
+              <th>Coefficient</th>
+              <th>Notes</th>
+              <th>Moyenne</th> <!-- Colonne pour la moyenne -->
+            </tr>";
+
+    while ($row = $notes->fetch(PDO::FETCH_ASSOC)) {
+        // Récupérer la chaîne des notes
+        $notes_string = $row['notes'];  // Exemple: "15<sup>1</sup>, 5<sup>1</sup>"
+
+        // Initialisation des variables pour la somme des notes pondérées et des coefficients
+        $note_number = 0;
+        $note_coef = 0;
+
+        // Séparer la chaîne en éléments individuels (notes et coefficients)
+        $notes_array = explode(", ", $notes_string);
+
+        // Parcourir chaque élément (note avec son coefficient)
+        foreach ($notes_array as $note) {
+            // Utiliser une expression régulière pour extraire la note et le coefficient
+            preg_match('/(\d+)<sup>(\d+)<\/sup>/', $note, $matches);
+
+            // Si une correspondance est trouvée, on récupère la note et le coefficient
+            if (isset($matches[1]) && isset($matches[2])) {
+                $note_value = (int)$matches[1];      // La note
+                $coef_value = (int)$matches[2];      // Le coefficient
+
+                // Ajouter la note pondérée à la somme
+                $note_number += $note_value * $coef_value;
+                // Ajouter le coefficient à la somme des coefficients
+                $note_coef += $coef_value;
+            }
+        }
+
+        // Calcul de la moyenne pondérée pour la matière
+        if ($note_coef > 0) {
+            $moyenne_matiere = $note_number / $note_coef;
+        } else {
+            $moyenne_matiere = 0;  // Si aucun coefficient n'est trouvé, la moyenne est 0
+        }
+
+        // Ajouter la moyenne pondérée de la matière à la somme des moyennes pondérées de la compétence
+        $total_moyenne_competence += $moyenne_matiere * $note_coef;
+        // Ajouter le coefficient de la matière à la somme des coefficients de la compétence
+        $total_coef_competence += $note_coef;
+
+        // Affichage de la ligne du tableau avec la moyenne pour chaque matière
+        echo "<tr>
+                <td>{$row['matiere_nom']}</td>
+                <td>{$row['note_coef']}</td>
+                <td>{$row['notes']}</td>
+                <td>" . number_format($moyenne_matiere, 2) . "</td> <!-- Moyenne par matière -->
+              </tr>";
+    }
+
+    // Calcul de la moyenne générale pour la compétence
+    if ($total_coef_competence > 0) {
+        $moyenne_competence = $total_moyenne_competence / $total_coef_competence;
+    } else {
+        $moyenne_competence = 0;  // Si aucun coefficient n'est trouvé, la moyenne est 0
+    }
+
+    // Affichage de la moyenne générale de la compétence
+    echo "<tr>
+            <td colspan='3'>Moyenne générale de la compétence</td>
+            <td>" . number_format($moyenne_competence, 2) . "</td>
+          </tr>";
+
+    echo "</table>";
+}
+
+echo "</div>";
+?>
+                
+            
         </div>
     </div>
     <script src="script.js"></script>
