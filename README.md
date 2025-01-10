@@ -38,4 +38,4 @@ Pour ce qui est des données, il faut créer sa base de données en local et imp
 - Si vous êtes un utilisateur de mac, modifiez la fonction  dbConnect dans "model.php" (dbname=ent;port=8889', 'root', 'root').
 
 Une fois que la base est bien liée au site, il suffit d’y accéder avec l’adresse:
-
+https://ent.duhez.butmmi.o2switch.site/ 
