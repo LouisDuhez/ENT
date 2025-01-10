@@ -1,7 +1,10 @@
 # ENT
 
-Compte utilisateur : login : test
+Compte utilisateur 1 : login : test
                      mdp : test
+
+Compte utilisateur 2 : login : theo
+                     mdp : theo
 
 Compte Admin : login : admin
                mdp : admin
