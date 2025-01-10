@@ -1,6 +1,6 @@
 *,
 *::before,
-*::after{
+*::after {
     box-sizing: border-box;
 }
 
@@ -21,7 +21,7 @@ body {
     padding: 0;
 }
 
-.connexion{
+.connexion {
     background-color: var(--blue);
     color: var(--black);
     display: flex;
@@ -100,35 +100,35 @@ form input[type="submit"]:hover {
 }
 
 .image-container {
-    display: none; 
+    display: none;
 }
 
-.logo-university{
+.logo-university {
     width: 40%;
     margin-top: 30px;
 }
 
-.settings-connexion{
+.settings-connexion {
     display: flex;
     margin-top: 30px;
 }
 
-.settings-connexion label{
+.settings-connexion label {
     margin-right: 60px;
     color: var(--blue);
-} 
+}
 
 
-.settings-connexion a{
+.settings-connexion a {
     color: var(--red);
     transition: color 0.8 ease-in;
     font-weight: bold;
-} 
+}
 
 
-.settings-connexion a:hover{
+.settings-connexion a:hover {
     color: var(--blue);
-} 
+}
 
 
 @media (min-width: 768px) {
@@ -152,10 +152,10 @@ form input[type="submit"]:hover {
     }
 
     .form-container h1 {
-        font-size: 32px;
+        font-size: 2rem;
     }
-    
-    .logo-university{
+
+    .logo-university {
         width: 20%;
         margin-top: 30px;
     }

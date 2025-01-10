@@ -1,0 +1,255 @@
+/* PORTE MONNAIE */
+
+@import url(nav.css);
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.top-container {
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 16px;
+}
+
+.trait-blanc {
+  width: 50%;
+  height: 3px;
+  background-color: white;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #001947;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ffffff33;
+}
+
+h1 {
+  margin-top: 10px;
+  color: white;
+}
+
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.balance-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.balance-card {
+  background: white;
+  color: #001947;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.balance-date {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.balance-amount {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0;
+}
+
+.qr-code img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.qr-code {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.student-card-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.card-details {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.card-details img {
+  width: 200px;
+  height: auto;
+  border-radius: 15px;
+  border: 1px solid white;
+}
+
+.student-info p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Historique */
+.history-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-all {
+  background: #ffffff33;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  height: 44px;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-table th,
+.transaction-table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ffffff33;
+}
+
+.transaction-table th {
+  font-size: 0.9rem;
+}
+
+.transaction-table td {
+  font-size: 0.85rem;
+}
+
+/* Recharges */
+.recharge-section button {
+  background: #ffffff33;
+  height: 44px;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  margin: 0.2rem 0;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .balance-section {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .recharge-section button {
+    width: auto;
+    margin: 0 0.5rem 0.5rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+
+  .balance-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.task {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.task h3 {
+  margin: 0 0 10px;
+}
+
+.task a {
+  background-color: #A22D2D;
+  border: none;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task a:hover {
+  background-color: #C14646;
+}
+
+@media (min-width: 768px) {
+  .task-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .page {
+    display: flex;
+    align-items: center;
+  }
+
+
+  .align {
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+  }
+
+  .center {
+    display: flex;
+  }
+}

@@ -3,140 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Absences</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            padding: 2rem;
-            background: #f4f4f9;
-            color: #333;
-        }
-
-        h2 {
-            text-align: center;
-            color: #007bff;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            margin-top: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background: #007bff;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        tr:hover {
-            background: #f1f1f1;
-        }
-
-        td a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        td a:hover {
-            text-decoration: underline;
-        }
-
-        .center {
-            text-align: center;
-            font-style: italic;
-            color: #555;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="backAbsenceJustif.css">    </link>
+    <title>Liste absences - ENT</title>
+    <link rel="shortcut icon" type="image/png" href="./images/icon.png">
 </head>
 <body>
 
-<h2>Liste des Absences</h2>
+<div class="page">
+    <!-- ------------------------ Début menu ------------------------------- -->
+    <div class="burger-menu">
+        <button id="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Étudiant</th>
-            <th>Matière</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
-            <th>Durée</th>
-            <th>Justificatif</th>
-            <th>Statut</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-        $absences = showAllAbsences(); 
+      <div class="sidebar">
+        <div class="close-button">
+          <i class="fa-solid fa-times"></i>
+        </div>
 
-        if (empty($absences)): ?>
-            <tr>
-                <td colspan="7" class="center">Aucune absence à justifier</td>
-            </tr>
-        <?php else: 
-            foreach ($absences as $absence):
-                $duree = calculerTemps($absence['abs_date_debut'], $absence['abs_date_fin']);
-            ?>
+        <div class="profile-section">
+          <div class="profile-picture">
+            <div class="profile-icon"></div>
+          </div>
+        </div>
+
+        <nav class="menu">
+        <!-- Accueil link -->
+        <a href="control.php?action=home">
+                  <div class="menu-item">
+                    <div class="icon">
+                      <i class="fa-solid fa-house"></i>
+                    </div>
+                    <div class="text">Accueil</div>
+                  </div>
+              </a>
+
+        <!-- BackOffice links -->
+        <a href="control.php?action=backAddNote">
+            <div class="menu-item">
+                <div class="icon">
+                    <i class="fa-solid fa-pencil-alt"></i>
+                </div>
+                <div class="text">Ajouter des notes</div>
+            </div>
+        </a>
+
+        <a href="control.php?action=backAddAbsence">
+            <div class="menu-item">
+                <div class="icon">
+                    <i class="fa-solid fa-calendar-times"></i>
+                </div>
+                <div class="text">Ajouter des absences</div>
+            </div>
+        </a>
+
+       
+        <a href="control.php?action=backJustifAbsence">
+            <div class="menu-item active">
+                <div class="icon">
+                    <i class="fa-solid fa-file-alt"></i>
+                </div>
+                <div class="text">Gérer les absences</div>
+            </div>
+        </a>
+
+        <a href="control.php?action=backHomeworkJustif">
+            <div class="menu-item">
+                <div class="icon">
+                    <i class="fa-solid fa-check-square"></i>
+                </div>
+                <div class="text">Voir les devoirs</div>
+            </div>
+        </a>
+
+        <a href="control.php?action=backAddHomework">
+            <div class="menu-item">
+                <div class="icon">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+                <div class="text">Ajouter des devoirs</div>
+            </div>
+        </a>
+
+
+        <!-- Déconnexion link -->
+        <a href="control.php?action=deConnect">
+            <div class="menu-item logout">
+                <div class="icon">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                <div class="text">Déconnexion</div>
+            </div>
+        </a>
+    </nav>
+      </div>
+      <!-- ------------------------ Fin menu ------------------------------- -->
+    <div class="container">
+    <h1>BackOffice</h1>
+        <h2>Liste des Absences</h2>
+        
+        <table>
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($absence['user_nom']) . " " . htmlspecialchars($absence['user_prenom']) ?></td>
-                    <td><?= htmlspecialchars($absence['matiere_nom']) ?></td>
-                    <td><?= htmlspecialchars($absence['abs_date_debut']) ?></td>
-                    <td><?= htmlspecialchars($absence['abs_date_fin']) ?></td>
-                    <td><?= gmdate("H:i:s", $duree) ?></td>
-                    <td>
-                        <?php if (!empty($absence['abs_justif_file'])): ?>
-                            <a href="absence_justif/<?= htmlspecialchars($absence['abs_justif_file']) ?>" target="_blank">Voir le fichier</a>
-                        <?php else: ?>
-                            Aucun fichier
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ($absence['abs_justif_valid'] == 1): ?>
-                            <strong>Justifiée</strong>
-                        <?php elseif ($absence['abs_justif'] == 1): ?>
-                            <form action="control.php?action=validateAbsence" method="POST">
-                                <input type="hidden" name="absence_id" value="<?= htmlspecialchars($absence['abs_id']) ?>">
-                                <button type="submit" class="btn">Valider</button>
-                            </form>
-                        <?php else: ?>
-                            Non justifiée
-                        <?php endif; ?>
-                    </td>
+                    <th>Étudiant</th>
+                    <th>Matière</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Durée</th>
+                    <th>Justificatif</th>
+                    <th>Statut</th>
                 </tr>
-            <?php endforeach; 
-        endif; ?>
-    </tbody>
-</table>
-
+            </thead>
+            <tbody>
+                <?php
+                $absences = showAllAbsences();
+        
+                if (empty($absences)): ?>
+                    <tr>
+                        <td colspan="7" class="center">Aucune absence à justifier</td>
+                    </tr>
+                <?php else:
+                    foreach ($absences as $absence):
+                        $duree = calculerTemps($absence['abs_date_debut'], $absence['abs_date_fin']);
+                    ?>
+                        <tr>
+                            <td><?= htmlspecialchars($absence['user_nom']) . " " . htmlspecialchars($absence['user_prenom']) ?></td>
+                            <td><?= htmlspecialchars($absence['matiere_nom']) ?></td>
+                            <td><?= htmlspecialchars($absence['abs_date_debut']) ?></td>
+                            <td><?= htmlspecialchars($absence['abs_date_fin']) ?></td>
+                            <td><?= gmdate("H:i:s", $duree) ?></td>
+                            <td>
+                                <?php if (!empty($absence['abs_justif_file'])): ?>
+                                    <a href="absence_justif/<?= htmlspecialchars($absence['abs_justif_file']) ?>" target="_blank">Voir le fichier</a>
+                                <?php else: ?>
+                                    Aucun fichier
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($absence['abs_justif_valid'] == 1): ?>
+                                    <strong>Justifiée</strong>
+                                <?php elseif ($absence['abs_justif'] == 1): ?>
+                                    <form action="control.php?action=validateAbsence" method="POST">
+                                        <input type="hidden" name="absence_id" value="<?= htmlspecialchars($absence['abs_id']) ?>">
+                                        <button type="submit" class="btn">Valider</button>
+                                    </form>
+                                <?php else: ?>
+                                    Non justifiée
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach;
+                endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

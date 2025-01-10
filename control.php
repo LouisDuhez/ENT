@@ -23,6 +23,8 @@ else {
         case 'ConnectUser' : 
             $email = $_POST["email"];
             $mdp = $_POST["mdp"];
+            $_SESSION['user'] = $email;
+            $_SESSION['mdp'] = $mdp;
             $resultConnectUser = connectUser($email, $mdp);
 
             $user = $resultConnectUser['user'];
@@ -43,7 +45,9 @@ else {
                 }
             } 
             break;
-
+        case 'home' :
+            include("view/home.php");
+            break;
         case 'deConnect' : 
             logOutUser();
             include("view/user_connect.php");
@@ -137,8 +141,16 @@ else {
             }
             include('view/absence.php');
             break;
+            case 'showCloud';
 
-            case 'showFolder';
+            case 'showAddFolder':
+                $addFolder = true;
+                include('view/cloud.php');
+                break;
+            case 'showAddFile':
+                
+                header('Location: control.php?action=showCloud&addFile=true&folderId=' . $_GET['folderId']);
+                break;
             
             if (isset($_GET['folderId']) && is_numeric($_GET['folderId'])) {
                 $folderId = $_GET['folderId'];

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Back Office</title>
+    <title>BackOffice - ENT</title>
+    <link rel="shortcut icon" type="image/png" href="./images/icon.png">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-        <!-- Sidebar -->
+
 <div class="sidebar">
     <div class="profile-section">
         <div class="profile-picture">
@@ -16,7 +17,6 @@
     </div>
 
     <nav class="menu">
-        <!-- Accueil link -->
         <a href="view/home.php">
             <div class="menu-item active">
                 <div class="icon">
@@ -26,7 +26,6 @@
             </div>
         </a>
 
-        <!-- BackOffice links -->
         <h1>BackOffice</h1>
         <a href="control.php?action=backAddNote">
             <div class="menu-item">
@@ -73,7 +72,6 @@
             </div>
         </a>
 
-        <!-- Déconnexion link -->
         <a href="control.php?action=deConnect">
             <div class="menu-item logout">
                 <div class="icon">

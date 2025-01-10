@@ -13,161 +13,211 @@
         referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="sidebar">
-        <div class="profile-section">
-            <div class="profile-picture">
-                <div class="profile-icon"></div>
+    <div class="page">
+        <!-- ------------------------ Début menu ------------------------------- -->
+        <div class="burger-menu">
+            <button id="menu-toggle">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+          <div class="sidebar">
+            <div class="close-button">
+              <i class="fa-solid fa-times"></i>
             </div>
-        </div>
-
-        <nav class="menu">
-            <a href="control.php?action=home.php">
-                <div class="menu-item">
+            <div class="profile-section">
+              <div class="profile-picture">
+                <div class="profile-icon"></div>
+              </div>
+            </div>
+            <nav class="menu">
+              <a href="control.php?action=home">
+                  <div class="menu-item">
                     <div class="icon">
-                        <i class="fa-solid fa-house"></i>
+                      <i class="fa-solid fa-house"></i>
                     </div>
                     <div class="text">Accueil</div>
-                </div>
-            </a>
-
-            <a href="control.php?action=showSchedule">
+                  </div>
+              </a>
+              <a href="control.php?action=showSchedule">
                 <div class="menu-item">
-                    <div class="icon timetable">
-                        <i class="fa-regular fa-calendar-days"></i>
-                    </div>
-                    <div class="text">Emploi du temps</div>
+                  <div class="icon timetable">
+                    <i class="fa-regular fa-calendar-days"></i>
+                  </div>
+                  <div class="text">Emploi du temps</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showHomework">
+              </a>
+              <a href="control.php?action=showHomework">
                 <div class="menu-item">
-                    <div class="icon text-book">
-                        <i class="fa-solid fa-book"></i>
-                    </div>
-                    <div class="text">Cahier de texte</div>
+                  <div class="icon text-book">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div class="text">Cahier de texte</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showNote">
+              </a>
+              <a href="control.php?action=showNote">
                 <div class="menu-item active">
-                    <div class="icon notes">
-                        <i class="fa-regular fa-newspaper"></i>
-                    </div>
-                    <div class="text">Notes</div>
+                  <div class="icon notes">
+                    <i class="fa-regular fa-newspaper"></i>
+                  </div>
+                  <div class="text">Notes</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showAbsence">
+              </a>
+              <a href="control.php?action=showAbsence">
                 <div class="menu-item">
-                    <div class="icon attendance">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div class="text">Absences/Retards</div>
+                  <div class="icon attendance">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                  </div>
+                  <div class="text">Absences/Retards</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showChat">
+              </a>
+              <a href="control.php?action=showChat">
                 <div class="menu-item">
-                    <div class="icon chat">
-                        <i class="fa-regular fa-comments"></i>
-                    </div>
-                    <div class="text">Chat rapide</div>
+                  <div class="icon chat">
+                    <i class="fa-regular fa-comments"></i>
+                  </div>
+                  <div class="text">Chat rapide</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showCloud">
+              </a>
+              <a href="control.php?action=showCloud">
                 <div class="menu-item">
-                    <div class="icon cloud">
-                        <i class="fa-solid fa-cloud"></i>
-                    </div>
-                    <div class="text">Cloud</div>
+                  <div class="icon cloud">
+                    <i class="fa-solid fa-cloud"></i>
+                  </div>
+                  <div class="text">Cloud</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=showCash">
+              </a>
+              <a href="control.php?action=showCash">
                 <div class="menu-item">
-                    <div class="icon wallet">
-                        <i class="fa-solid fa-money-check-dollar"></i>
-                    </div>
-                    <div class="text">Porte monnaie</div>
+                  <div class="icon wallet">
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                  </div>
+                  <div class="text">Porte monnaie</div>
                 </div>
-            </a>
-
-            <a href="control.php?action=deConnect">
+              </a>
+              <a href="control.php?action=deConnect">
                 <div class="menu-item logout">
-                    <div class="icon">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </div>
-                    <div class="text">Déconnexion</div>
+                  <div class="icon">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  </div>
+                  <div class="text">Déconnexion</div>
                 </div>
-            </a>
-        </nav>
-    </div>
-
-    <div class="table">
-        <h1>Notes</h1>
-        <table class="table-notes">
-            <thead>
-                <tr>
-                    <th>Compétences</th>
-                    <th>Matières</th>
-                    <th>Coefficients</th>
-                    <th>Moyennes</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
+              </a>
+            </nav>
+          </div>
+          <!-- ------------------------ Fin menu ------------------------------- -->
+        <div class="container">
+                <div class="top-container">
+                  <div class="trait-blanc"></div>
+                    <h1>Notes</h1>
+                    <div class="trait-blanc"></div>
+                </div>
                 <?php
-                $competences = [1, 2, 3, 4, 5];
-                $competence_notes = [];
+                $user_id = $_SESSION['user_id'];
+                $competences = [1, 2, 3, 4, 5]; 
+                echo "<div class='tableNote'>";
 
                 foreach ($competences as $competence_id) {
-                    $stmt = showNoteCompetence($_SESSION['user_id'], $competence_id);
-                    $listNote = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Récupérer le nom de la compétence
+                    $db = dbConnect();
+                    $stmt = $db->prepare("SELECT competence_nom FROM competence WHERE competence_id = :competence_id");
+                    $stmt->bindParam(":competence_id", $competence_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $competence = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                    // Organiser les matières et notes sous chaque compétence
-                    if (count($listNote) > 0) {
-                        foreach ($listNote as $note) {
-                            $competence_notes[$note['competence_nom']][] = $note;
-                        }
+                    // Vérifie si la compétence existe
+                    if ($competence) {
+                        echo "<h2>Compétence : {$competence['competence_nom']}</h2>";
+                    } else {
+                        echo "<h2>Compétence inconnue (ID : $competence_id)</h2>";
+                        continue;
                     }
-                }
 
-                // Affichage des compétences et des matières avec leurs notes
-                foreach ($competence_notes as $competence_nom => $notes) {
-                    foreach ($notes as $note) {
-                        echo "<tr>";
-                        echo "<td>" . $competence_nom . "</td>";
-                        echo "<td>" . $note['matiere_nom'] . "</td>";
-                        echo "<td>" . $note['note_coef'] . "</td>";
-                        echo "<td>" . $note['note_number'] . "</td>";
-                        echo "</tr>";
-                    }
-                }
-                ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4" class="footer-label">Moyenne générale</td>
-                    <td>
-                        <?php
-                        // Calcul de la moyenne générale (ajuster selon la logique du calcul)
-                        $total_notes = 0;
-                        $total_coefficients = 0;
-                        foreach ($competence_notes as $notes) {
-                            foreach ($notes as $note) {
-                                $total_notes += $note['note_number'] * $note['note_coef'];
-                                $total_coefficients += $note['note_coef'];
+                    // Récupérer les notes pour cette compétence
+                    $notes = showNoteCompetence($user_id, $competence_id);
+
+                    // Initialisation des variables pour la moyenne générale de la compétence
+                    $total_moyenne_competence = 0;
+                    $total_coef_competence = 0;
+
+                    echo "<table border='1'>
+                            <tr>
+                              <th>Matière</th>
+                              <th>Coefficient</th>
+                              <th>Notes</th>
+                              <th>Moyenne</th> <!-- Colonne pour la moyenne -->
+                            </tr>";
+
+                    while ($row = $notes->fetch(PDO::FETCH_ASSOC)) {
+                        // Récupérer la chaîne des notes
+                        $notes_string = $row['notes'];  // Exemple: "15<sup>1</sup>, 5<sup>1</sup>"
+
+                        // Initialisation des variables pour la somme des notes pondérées et des coefficients
+                        $note_number = 0;
+                        $note_coef = 0;
+
+                        // Séparer la chaîne en éléments individuels (notes et coefficients)
+                        $notes_array = explode(", ", $notes_string);
+
+                        // Parcourir chaque élément (note avec son coefficient)
+                        foreach ($notes_array as $note) {
+                            // Utiliser une expression régulière pour extraire la note et le coefficient
+                            preg_match('/(\d+)<sup>(\d+)<\/sup>/', $note, $matches);
+
+                            // Si une correspondance est trouvée, on récupère la note et le coefficient
+                            if (isset($matches[1]) && isset($matches[2])) {
+                                $note_value = (int)$matches[1];      // La note
+                                $coef_value = (int)$matches[2];      // Le coefficient
+
+                                // Ajouter la note pondérée à la somme
+                                $note_number += $note_value * $coef_value;
+                                // Ajouter le coefficient à la somme des coefficients
+                                $note_coef += $coef_value;
                             }
                         }
-                        $moyenne_generale = $total_notes / $total_coefficients;
-                        echo round($moyenne_generale, 2);
-                        ?>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+
+                        // Calcul de la moyenne pondérée pour la matière
+                        if ($note_coef > 0) {
+                            $moyenne_matiere = $note_number / $note_coef;
+                        } else {
+                            $moyenne_matiere = 0;  // Si aucun coefficient n'est trouvé, la moyenne est 0
+                        }
+
+                        // Ajouter la moyenne pondérée de la matière à la somme des moyennes pondérées de la compétence
+                        $total_moyenne_competence += $moyenne_matiere * $note_coef;
+                        // Ajouter le coefficient de la matière à la somme des coefficients de la compétence
+                        $total_coef_competence += $note_coef;
+
+                        // Affichage de la ligne du tableau avec la moyenne pour chaque matière
+                        echo "<tr>
+                                <td>{$row['matiere_nom']}</td>
+                                <td>{$row['note_coef']}</td>
+                                <td>{$row['notes']}</td>
+                                <td>" . number_format($moyenne_matiere, 2) . "</td> <!-- Moyenne par matière -->
+                              </tr>";
+                    }
+
+                    // Calcul de la moyenne générale pour la compétence
+                    if ($total_coef_competence > 0) {
+                        $moyenne_competence = $total_moyenne_competence / $total_coef_competence;
+                    } else {
+                        $moyenne_competence = 0;  // Si aucun coefficient n'est trouvé, la moyenne est 0
+                    }
+
+                    // Affichage de la moyenne générale de la compétence
+                    echo "<tr>
+                            <td colspan='3'>Moyenne générale de la compétence</td>
+                            <td>" . number_format($moyenne_competence, 2) . "</td>
+                          </tr>";
+
+                    echo "</table>";
+                }
+
+                echo "</div>";
+                ?>
+                
+            
+        </div>
     </div>
-    
+    <script src="script.js"></script>
 </body>
 </html>

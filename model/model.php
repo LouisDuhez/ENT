@@ -78,16 +78,34 @@ function showNote($user_id)
 function showNoteCompetence($user_id, $competence_id)
 {
     $db = dbConnect();
-    $requete = ('SELECT * FROM `note` 
-    INNER JOIN user ON note.fk_user_id = user.user_id
-    INNER JOIN matiere ON note.fk_matiere_id = matiere.matiere_id
-    INNER JOIN competence ON matiere.fk_competence_id = competence.competence_id
-    WHERE user.user_id = :user_id AND competence.competence_id = :competence
-    ORDER BY matiere.matiere_id');
+    $requete = ('SELECT *, GROUP_CONCAT(CONCAT(note.note_number, "<sup>", note.note_coef, "</sup>") SEPARATOR ", ") AS notes 
+                        
+                 FROM note
+                 INNER JOIN user ON note.fk_user_id = user.user_id
+                 INNER JOIN matiere ON note.fk_matiere_id = matiere.matiere_id
+                 INNER JOIN competence ON matiere.fk_competence_id = competence.competence_id
+                 WHERE user.user_id = :user_id AND competence.competence_id = :competence_id
+                 GROUP BY matiere.matiere_id
+                 ORDER BY matiere.matiere_id');
 
     $stmt = $db->prepare($requete);
     $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-    $stmt->bindParam(":competence", $competence_id, PDO::PARAM_INT);
+    $stmt->bindParam(":competence_id", $competence_id, PDO::PARAM_INT);
+
+    if (!$stmt->execute()) {
+        // Affiche les erreurs si la requête échoue
+        print_r($stmt->errorInfo());
+    }
+
+    return $stmt;
+}
+
+function getCompetenceName($competence_id)
+{
+    $db = dbConnect();
+    $requete = "SELECT competence_nom FROM competence WHERE competence_id = :competence_id";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(":competence_id", $competence_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
 }

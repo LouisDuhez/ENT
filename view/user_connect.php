@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Connexion - ENT</title>
+    <link rel="shortcut icon" type="image/png" href="./images/icon.png">
     <link rel="stylesheet" href="./user_connect.css">
 </head>
 
@@ -35,8 +36,8 @@
                 </form>
 
                 <div class="settings-connexion">
-                    <input type="radio" id="remember" name="rememberme" value="huey" checked />
-                    <label for="remember">Se souvenir de moi</label>
+                <input type="checkbox" id="remember" name="rememberme" checked />
+                <label for="remember">Se souvenir de moi</label>
                     <a href="">Mot de passe oublié ?</a>
                 </div>
 
