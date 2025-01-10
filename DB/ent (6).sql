@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 19 déc. 2024 à 10:38
+-- Généré le : ven. 10 jan. 2025 à 15:12
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -37,18 +37,20 @@ CREATE TABLE IF NOT EXISTS `absence` (
   `abs_justif` tinyint(1) NOT NULL,
   `fk_matiere_id` int NOT NULL,
   `abs_justif_file` text NOT NULL,
+  `abs_justif_valid` tinyint(1) NOT NULL,
   PRIMARY KEY (`abs_id`),
   KEY `fk_matiere_id` (`fk_matiere_id`),
   KEY `fk_user_id` (`fk_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `absence`
 --
 
-INSERT INTO `absence` (`abs_id`, `fk_user_id`, `abs_desc`, `abs_date_debut`, `abs_date_fin`, `abs_justif`, `fk_matiere_id`, `abs_justif_file`) VALUES
-(1, 1, 'Retard bouchon', '2024-12-03 12:30:00', '2024-12-03 12:45:00', 1, 1, 'Casquette luigi.png'),
-(3, 1, 'Retard bouffe', '2024-12-17 15:43:23', '2024-12-17 18:43:23', 1, 3, '20210718_182207.jpg');
+INSERT INTO `absence` (`abs_id`, `fk_user_id`, `abs_desc`, `abs_date_debut`, `abs_date_fin`, `abs_justif`, `fk_matiere_id`, `abs_justif_file`, `abs_justif_valid`) VALUES
+(1, 1, 'Retard bouchon', '2024-12-03 12:30:00', '2024-12-03 12:45:00', 0, 1, 'Casquette luigi.png', 0),
+(3, 1, 'Retard bouffe', '2024-12-17 15:43:23', '2024-12-17 18:43:23', 1, 3, '20210718_182207.jpg', 1),
+(7, 1, 'Maladie', '2025-01-10 11:39:41', '2025-01-10 18:39:41', 1, 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -116,15 +118,16 @@ CREATE TABLE IF NOT EXISTS `devoir` (
   PRIMARY KEY (`devoir_id`),
   KEY `devoir_matiere` (`fk_matiere_id`),
   KEY `fk_user_id` (`fk_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `devoir`
 --
 
 INSERT INTO `devoir` (`devoir_id`, `devoir_nom`, `devoir_desc`, `devoir_date_fin`, `fk_matiere_id`, `fk_user_id`, `devoir_rendu`, `devoir_fichier`) VALUES
-(1, 'ENT ', 'Rendre le projet de l\'ENT', '2025-01-10 23:59:59', 2, 1, 1, '676307fd0cf2e-20210718_182207.jpg'),
-(2, 'DATAVIZ', 'Rendre dataviz', '2024-12-16 08:08:17', 1, 1, 1, '');
+(1, 'ENT ', 'Rendre le projet de l\'ENT', '2025-01-10 23:59:59', 2, 1, 0, ''),
+(2, 'DATAVIZ', 'Rendre dataviz', '2024-12-16 08:08:17', 1, 1, 1, '677d4b4b99a37-spotifymaquette.png'),
+(5, 'Portfolio', 'Finir le Portfolio', '2025-01-31 13:52:26', 4, 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -184,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `folder` (
   `folder_name` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`folder_id`),
   KEY `fk_user_id` (`fk_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `folder`
@@ -192,7 +195,9 @@ CREATE TABLE IF NOT EXISTS `folder` (
 
 INSERT INTO `folder` (`folder_id`, `fk_user_id`, `folder_name`) VALUES
 (1, 1, 'PHP'),
-(2, 1, 'Javascript');
+(2, 1, 'Javascript'),
+(8, 1, 'Test'),
+(10, 1, 'Test2');
 
 -- --------------------------------------------------------
 
@@ -208,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `matiere` (
   PRIMARY KEY (`matiere_id`),
   KEY `fk_competence_id` (`fk_competence_id`),
   KEY `fk_competence_id_2` (`fk_competence_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `matiere`
@@ -217,7 +222,8 @@ CREATE TABLE IF NOT EXISTS `matiere` (
 INSERT INTO `matiere` (`matiere_id`, `matiere_nom`, `fk_competence_id`) VALUES
 (1, 'JavaScript', 1),
 (2, 'PHP', 1),
-(3, 'Gestion de projet', 5);
+(3, 'Gestion de projet', 5),
+(4, 'Intégration', 1);
 
 -- --------------------------------------------------------
 
@@ -260,20 +266,23 @@ CREATE TABLE IF NOT EXISTS `note` (
   `note_number` float NOT NULL,
   `fk_matiere_id` int NOT NULL,
   `fk_user_id` int NOT NULL,
+  `note_name` text NOT NULL,
   PRIMARY KEY (`note_id`),
   KEY `fk_matiere_id_2` (`fk_matiere_id`),
   KEY `fk_user_id` (`fk_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `note`
 --
 
-INSERT INTO `note` (`note_id`, `note_coef`, `note_number`, `fk_matiere_id`, `fk_user_id`) VALUES
-(1, 1, 15, 1, 1),
-(2, 1, 2, 3, 1),
-(3, 1, 10, 2, 1),
-(8, 1, 20, 2, 1);
+INSERT INTO `note` (`note_id`, `note_coef`, `note_number`, `fk_matiere_id`, `fk_user_id`, `note_name`) VALUES
+(1, 1, 15, 1, 1, 'QCM'),
+(2, 1, 2, 3, 1, 'Contrôle fin de chapitre'),
+(3, 1, 10, 2, 1, 'Blog PHP'),
+(8, 1, 20, 2, 1, 'ENT'),
+(9, 1, 5, 1, 1, 'QCM '),
+(10, 1, 10, 2, 1, 'Référencement');
 
 -- --------------------------------------------------------
 
@@ -304,16 +313,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_prenom` varchar(60) NOT NULL,
   `user_mdp` text NOT NULL,
   `user_email` text NOT NULL,
+  `user_admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_nom`, `user_prenom`, `user_mdp`, `user_email`) VALUES
-(1, 'DUHEZ', 'Louis', 'test', 'test'),
-(9, 'De Oliveira', 'Théo', 'theo', 'theo');
+INSERT INTO `user` (`user_id`, `user_nom`, `user_prenom`, `user_mdp`, `user_email`, `user_admin`) VALUES
+(1, 'DUHEZ', 'Louis', 'test', 'test', 0),
+(9, 'De Oliveira', 'Théo', 'theo', 'theo', 0),
+(10, 'admin', 'admin', 'admin', 'admin', 1);
 
 --
 -- Contraintes pour les tables déchargées
