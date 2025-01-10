@@ -17,6 +17,8 @@ a11y et Opquast: https://docs.google.com/document/d/1PFPohph-ZpYfaeToVwbtDxauVFg
 
 Product Backlog: https://docs.google.com/spreadsheets/d/15kwAIlSWblKscINj0IvNKoaXvtU4EhTHo6Jdn7_WkUY/edit?usp=sharing
 
+Url Gestion de projet : https://docs.google.com/document/d/1srkQUUfHxeuk97mZ-ozIJuFqM4Ocxuxw5mw8UXFOLFM/edit?usp=sharing
+
 Audit, synthèse de la recherche utilisateur, parcours et wireframes, écrans finaux sur Figma: https://www.figma.com/design/DXEqC2LXQazsSzN1dABWee/ENT-Justine%2FLouis%2FTh%C3%A9o?node-id=0-1&t=x25qZ8bL6CNPWmec-1 
 
 ________________________________
