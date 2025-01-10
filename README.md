@@ -9,9 +9,9 @@ Compte utilisateur 2 : login : theo
 Compte Admin : login : admin
                mdp : admin
 
-url du site: https://ent.duhez.butmmi.o2switch.site/control.php?action=showCash
+url du site: https://ent.duhez.butmmi.o2switch.site/
 
-url du back-office: https://ent.duhez.butmmi.o2switch.site/control.php
+url du back-office: https://ent.duhez.butmmi.o2switch.site/ avec identifiants admin
 
 a11y et Opquast: https://docs.google.com/document/d/1PFPohph-ZpYfaeToVwbtDxauVFgSzp7KarTKrvB8iQg/edit?usp=sharing 
 
