@@ -106,7 +106,7 @@
                     <a href="control.php?action=showBackOffice">
                     <div class="menu-item">
                         <div class="icon wallet">
-                            <i class="fa-solid fa-money-check-dollar"></i>
+                        <i class="fa-solid fa-lock"></i>
                         </div>
                         <div class="text">Admin</div>
                     </div>

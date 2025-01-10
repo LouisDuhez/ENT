@@ -5,18 +5,24 @@
 *::after{
     box-sizing: border-box;
 }  
+.container {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
 
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #001947;
-    color: white;
+    color: black;
   }
   
 
-h2 {
+h1 {
     text-align: center;
-    color: #007bff;
+    color: white;
 }
 
 table {
@@ -34,7 +40,7 @@ th, td {
 }
 
 th {
-    background: #007bff;
+    background: #A31F21;
     color: white;
     text-transform: uppercase;
 }
@@ -50,7 +56,7 @@ tr:hover {
 }
 
 td a {
-    color: #007bff;
+    color: #A31F21;
     text-decoration: none;
 }
 
@@ -66,7 +72,7 @@ td a:hover {
 
 .btn {
     padding: 0.5rem 1rem;
-    background: #007bff;
+    background: #A31F21;
     color: white;
     border: none;
     border-radius: 4px;
@@ -75,7 +81,7 @@ td a:hover {
 }
 
 .btn:hover {
-    background: #0056b3;
+    background: green;
 }
 
 @media (min-width: 768px) {

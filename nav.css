@@ -51,7 +51,7 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    background-image: url(theo.jpeg); 
+    background-image: url(img/theo.jpeg); 
     background-size: cover;
     background-position: center;
     display: flex;
@@ -133,7 +133,7 @@
       width: 130px;
       height: 130px;
       border-radius: 50%;
-      background-image: url(theo.jpeg); 
+      background-image: url(img/theo.jpeg); 
       background-size: cover;
       background-position: center;
     }

@@ -17,7 +17,7 @@
                 <h1>Connexion</h1>
                 <?php
                 if (isset($userTest) && $userTest == false) {
-                    echo "<p class='error-message'>Le nom d'utilisateur est incorrect. Vous pouvez vous inscrire <a href='index.php?action=inscription'>ici</a>.</p>";
+                    echo "<p class='error-message'>Le nom d'utilisateur est incorrect. Veuillez réessayer.</p>";
                 }
                 if (isset($mdpTest) && $mdpTest == false) {
                     echo "<p class='error-message'>Le mot de passe est incorrect. Veuillez réessayer.</p>";
@@ -47,7 +47,7 @@
             <div class="image-container"></div>
         </div>
 
-        <img src="../img/logo-university.png" alt="" class="logo-university">
+        <img src="img/logo-university.png" alt="" class="logo-university">
     </main>
 
 </body>

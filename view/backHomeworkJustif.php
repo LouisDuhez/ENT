@@ -84,7 +84,23 @@
                 <div class="text">Ajouter des devoirs</div>
             </div>
         </a>
-
+        <?php
+                 $stmt = userIsAdmin($_SESSION['user']);
+                 $infoUser = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($infoUser['user_admin'] == 1) {
+                    ?>
+                    <a href="control.php?action=showBackOffice">
+                    <div class="menu-item">
+                        <div class="icon wallet">
+                        <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div class="text">Admin</div>
+                    </div>
+                </a>
+                <?php
+                }
+        
+                ?>
 
         <!-- Déconnexion link -->
         <a href="control.php?action=deConnect">
@@ -99,7 +115,7 @@
       </div>
       <!-- ------------------------ Fin menu ------------------------------- -->
     <div class="container">
-        <h2>Liste des Devoirs Rendus</h2>
+        <h1>Liste des Devoirs Rendus</h1>
     
         <div class="table-container">
             <?php

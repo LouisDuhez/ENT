@@ -85,7 +85,23 @@
             </div>
         </a>
 
-
+        <?php
+                 $stmt = userIsAdmin($_SESSION['user']);
+                 $infoUser = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($infoUser['user_admin'] == 1) {
+                    ?>
+                    <a href="control.php?action=showBackOffice">
+                    <div class="menu-item">
+                        <div class="icon wallet">
+                        <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div class="text">Admin</div>
+                    </div>
+                </a>
+                <?php
+                }
+        
+                ?>
         <!-- Déconnexion link -->
         <a href="control.php?action=deConnect">
             <div class="menu-item logout">
@@ -99,8 +115,7 @@
       </div>
       <!-- ------------------------ Fin menu ------------------------------- -->
     <div class="container">
-    <h1>BackOffice</h1>
-        <h2>Liste des Absences</h2>
+        <h1>Liste des Absences</h1>
         
         <table>
             <thead>

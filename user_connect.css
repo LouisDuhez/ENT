@@ -25,6 +25,7 @@ body {
     background-color: var(--blue);
     color: var(--black);
     display: flex;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     flex-direction: column;
@@ -147,8 +148,10 @@ form input[type="submit"]:hover {
         flex: 1;
         display: block;
         background-image: url('img/img-connexion.jpg');
-        background-size: cover;
+        background-size: contain;
+        background-repeat: no-repeat;
         background-position: center;
+        background-color: #2E3494;
     }
 
     .form-container h1 {
