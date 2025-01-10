@@ -68,7 +68,8 @@ function showNote($user_id)
     INNER JOIN matiere ON note.fk_matiere_id = matiere.matiere_id
     INNER JOIN competence ON matiere.fk_competence_id = competence.competence_id
     WHERE user.user_id = :user_id
-    ORDER BY competence.competence_id');
+    ORDER BY competence.competence_id
+    LIMIT 7');
 
     $stmt = $db->prepare($requete);
     $stmt->bindParam(":user_id", $user_id, PDO::PARAM_STR);
@@ -454,5 +455,85 @@ function getAllHomeworks() {
     return $stmt;
 }
 
+function parseICS($url) {
+    $events = [];
+    $icsContent = file_get_contents($url);
+    if ($icsContent === false) {
+        return "Impossible de récupérer l'emploi du temps.";
+    }
+    $lines = explode("\n", $icsContent);
+    $event = null;
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (strpos($line, 'BEGIN:VEVENT') !== false) {
+            $event = [];
+        } elseif (strpos($line, 'END:VEVENT') !== false) {
+            $events[] = $event;
+        } elseif ($event !== null) {
+            list($key, $value) = explode(':', $line, 2) + [null, null];
+            if ($key && $value) {
+                $event[$key] = $value;
+            }
+        }
+    }
+    return $events;
+}
+
+
+function filterEventsByDay($events, $targetDate) {
+    $filteredEvents = [];
+    foreach ($events as $event) {
+        if (isset($event['DTSTART'])) {
+            $start = strtotime($event['DTSTART']);
+            $eventDate = date('d/m/Y', $start);
+            if ($eventDate == $targetDate) {
+                $event['formatted_date'] = date('d/m/Y H:i', $start);
+                $filteredEvents[] = $event;
+            }
+        }
+    }
+    usort($filteredEvents, function($a, $b) {
+        return strtotime($a['DTSTART']) - strtotime($b['DTSTART']);
+    });
+    return $filteredEvents;
+}
+
+
+function getEventColor($summary) {
+    $categoryColors = [
+        'CM' => '#3f4e55',
+        'AB' => '#0f57dd',
+        'B' => '#A31F21',
+        'Autonomie' => '#ccc',
+        'Autre' => '#B0BEC5'
+    ];
+
+    foreach ($categoryColors as $key => $color) {
+        if (stripos($summary, $key) !== false) {
+            return $color;
+        }
+    }
+    return $categoryColors['Autre'];  // Par défaut
+}
+
+function filterEventsByWeek($events, $startOfWeek, $endOfWeek) {
+    $filteredEvents = [];
+    foreach ($events as $event) {
+        if (isset($event['DTSTART'])) {
+            $start = strtotime($event['DTSTART']);
+            if ($start >= $startOfWeek && $start <= $endOfWeek) {
+                $dayOfWeek = date('N', $start);
+                $event['formatted_date'] = date('d/m/Y H:i', $start);
+                $filteredEvents[$dayOfWeek][] = $event;
+            }
+        }
+    }
+    foreach ($filteredEvents as &$dayEvents) {
+        usort($dayEvents, function ($a, $b) {
+            return strtotime($a['DTSTART']) - strtotime($b['DTSTART']);
+        });
+    }
+    return $filteredEvents;
+}
 ?>
 

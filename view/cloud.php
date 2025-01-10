@@ -113,6 +113,11 @@
       </div>
       <!-- ------------------------ Fin menu ------------------------------- -->
        <div class="container">
+       <div class="top-file">
+                    <div class="trait-blanc"></div>
+                    <h1>Cloud&nbsp;personnel</h1>
+                    <div class="trait-blanc"></div>
+                </div>
            <!-- Dossiers à gauche -->
         <div class="folders">
        <div class="top-folder">
@@ -168,10 +173,7 @@
        </div>
          <!-- Fichiers à droite -->
             <div class="files-container">
-                <div class="top-file">
-                    <div class="trait-blanc"></div>
-                    <h1>Cloud personnel</h1>
-                </div>
+                
                            <div class="files">
                 
                        <?php

@@ -15,16 +15,11 @@ body {
   }
   
 
-
 h1 {
-    color: white;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 0;
-  }
-
-
+  margin-top: 0;
+  margin-left: 0;
+  color: white;
+}
 .page {
   display: flex;
   flex-direction: column;
@@ -37,7 +32,7 @@ h1 {
 }
 
 .edt-container {
-    color: white;
+    color: black;
 }
 
 
@@ -45,7 +40,22 @@ h1 {
     text-transform: uppercase;
 }
 
+.top-container {
+  margin-top: 15px;
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 16px;
+}
 
+.trait-blanc {
+  width: 50%;
+  height: 3px;
+  background-color: white;
+}
 table {
     border-collapse: collapse;
 }
@@ -54,10 +64,13 @@ th, td {
     padding: 10px;
     border: 2px solid #ddd;
     text-align: center;
+    background-color: #ffffff;
+    padding: 25px 15px;
+    border-radius: 8px;
 }
 
 .edt-container a {
-    color: white;
+    color: black;
     font-style: italic;
 }
 
@@ -215,6 +228,11 @@ table tr td:first-child {
 
 }
 
+.edt-container {
+  background-color: #DDE1E6;
+  border-radius: 16px;
+  padding: 15px 25px;
+}
 
 
 

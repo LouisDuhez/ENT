@@ -119,7 +119,12 @@
       <!-- ------------------------ Fin menu ------------------------------- -->
       <div class="align">
         <header class="header">
-          <h1>PORTE MONNAIE</h1>
+
+        <div class="top-container">
+          <div class="trait-blanc"></div>
+                      <h1>Porte&nbsp;Monnaie</h1>
+          <div class="trait-blanc"></div>
+        </div>
         </header>
         <div class="center">
           <main class="container">

@@ -120,8 +120,11 @@
         <!-- Main content -->
         <div class="container">
             <header>
-                <h1>Absence</h1>
-                <div class="filters"></div>
+            <div class="top-container">
+                  <div class="trait-blanc"></div>
+                  <h1>Absence </h1>
+                  <div class="trait-blanc"></div>
+            </div>
             </header>
             <main class="task-list">
         

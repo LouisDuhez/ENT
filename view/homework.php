@@ -122,7 +122,11 @@
 
             <!-- Header Section -->
             <header>
-                <h1>Cahier de Texte</h1>
+            <div class="top-container">
+            <div class="trait-blanc"></div>
+                  <h1>Cahier&nbsp;de&nbsp;texte</h1>
+                  <div class="trait-blanc"></div>
+                </div>
                 <div class="filters">
                     <?php
                     $stmt = showHomeworkMatiere();
