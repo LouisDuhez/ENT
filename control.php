@@ -329,7 +329,7 @@ else {
                         }
                         break;
                 case 'backJustifAbsence' :
-                include ('view/absencejustif.php');
+                include ('view/absenceJustif.php');
                 break;
                 case 'validateAbsence':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

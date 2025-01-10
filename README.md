@@ -1,8 +1,14 @@
 # ENT
 
-url du site:
+Compte utilisateur : login : test
+                     mdp : test
 
-url du back-office:
+Compte Admin : login : admin
+               mdp : admin
+
+url du site: https://ent.duhez.butmmi.o2switch.site/control.php?action=showCash
+
+url du back-office: https://ent.duhez.butmmi.o2switch.site/control.php
 
 a11y et Opquast: https://docs.google.com/document/d/1PFPohph-ZpYfaeToVwbtDxauVFgSzp7KarTKrvB8iQg/edit?usp=sharing 
 
