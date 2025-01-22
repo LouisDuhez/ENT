@@ -6,8 +6,6 @@ Compte utilisateur 1 : login : test
 Compte utilisateur 2 : login : theo
                      mdp : theo
 
-Compte Admin : login : admin
-               mdp : admin
 
 url du site: https://ent.duhez.butmmi.o2switch.site/
 
